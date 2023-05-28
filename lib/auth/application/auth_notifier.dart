@@ -24,8 +24,32 @@ class AuthNotifier extends StateNotifier<AuthState> {
   Future<void> checkAndUpdateAuthStatus() async {
     state = (await _authenticator.isSignedIn())
         ? const AuthState.authenticated()
-        : const AuthState.authenticated();
+        : const AuthState.unauthenticated();
   }
 
-  Future<void> signIn(AuthUriCallback authorizationCallback) async {}
+  Future<void> signIn(AuthUriCallback authorizationCallback) async {
+    final grant = _authenticator.creategrant();
+    final redirectUrl =
+        await authorizationCallback(_authenticator.getAuthorizationUrl(grant));
+    final response = await _authenticator.handleAuthorizationResponse(
+      grant,
+      redirectUrl.queryParameters,
+    );
+
+    state = response.fold(
+      (failure) => AuthState.failure(failure),
+      (_) => const AuthState.authenticated(),
+    );
+
+    grant.close();
+  }
+
+  Future<void> signOut() async {
+    final response = await _authenticator.signOut();
+
+    state = response.fold(
+      (failure) => AuthState.failure(failure),
+      (_) => const AuthState.unauthenticated(),
+    );
+  }
 }

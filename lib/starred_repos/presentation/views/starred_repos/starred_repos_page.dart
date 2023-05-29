@@ -1,13 +1,10 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
-class StarredReposPage extends StatefulWidget {
+@RoutePage()
+class StarredReposPage extends StatelessWidget {
   const StarredReposPage({super.key});
 
-  @override
-  State<StarredReposPage> createState() => _StarredReposPageState();
-}
-
-class _StarredReposPageState extends State<StarredReposPage> {
   @override
   Widget build(BuildContext context) {
     return Container();

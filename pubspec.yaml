@@ -23,7 +23,6 @@ dependencies:
   webview_flutter: ^4.0.7
 
 dev_dependencies:
-  auto_route_generator: ^6.2.0
   flutter_test:
     sdk: flutter
 
@@ -31,6 +30,7 @@ dev_dependencies:
   lint: ^2.0.1
   build_runner: ^2.3.3
   freezed: ^2.3.2
+  auto_route_generator: ^6.2.0
 
 flutter:
   uses-material-design: true

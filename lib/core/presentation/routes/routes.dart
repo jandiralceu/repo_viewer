@@ -1,6 +1,10 @@
 import 'package:auto_route/auto_route.dart';
 import 'routes.gr.dart';
 
+///
+/// App route configuration
+/// Here a setted all app routes and their children routes
+///
 @AutoRouterConfig(replaceInRouteName: 'Page,Route')
 class AppRouter extends $AppRouter {
   @override
@@ -8,8 +12,17 @@ class AppRouter extends $AppRouter {
 
   @override
   List<AutoRoute> get routes => [
-        AutoRoute(path: '/spash', page: SplashRoute.page, initial: true),
-        AutoRoute(path: '/starred', page: StarredReposRoute.page),
-        AutoRoute(path: '/sign-in', page: SignInRoute.page),
+        AutoRoute(
+          initial: true,
+          page: SplashRoute.page,
+        ),
+        AutoRoute(
+          path: '/starred',
+          page: StarredReposRoute.page,
+        ),
+        AutoRoute(
+          path: '/sign-in',
+          page: SignInRoute.page,
+        ),
       ];
 }

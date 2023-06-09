@@ -3,8 +3,4 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'core/core.dart';
 
-void main() => runApp(
-      const ProviderScope(
-        child: AppWidget(),
-      ),
-    );
+void main() => runApp(ProviderScope(child: AppWidget()));

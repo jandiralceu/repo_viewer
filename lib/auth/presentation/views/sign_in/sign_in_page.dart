@@ -1,8 +1,12 @@
+import 'dart:async';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:repo_viewer/auth/auth.dart';
+
+import '../../../../core/core.dart';
+import '../../../shared/shared.dart';
 
 @RoutePage()
 class SignInPage extends ConsumerWidget {
@@ -32,7 +36,21 @@ class SignInPage extends ConsumerWidget {
                     onPressed: () {
                       ref
                           .read(authNotifierProvider.notifier)
-                          .signIn((authorizationUrl) => null);
+                          .signIn((authorizationUrl) {
+                        final completer = Completer<Uri>();
+
+                        AutoRouter.of(context).push(
+                          AuthorizationRoute(
+                            authorizationUrl: authorizationUrl,
+                            onAuthorizationCodeRedirectAttempt:
+                                (redirectedUrl) {
+                              completer.complete(redirectedUrl);
+                            },
+                          ),
+                        );
+
+                        return completer.future;
+                      });
                     },
                     style: const ButtonStyle(
                       backgroundColor: MaterialStatePropertyAll(Colors.green),

@@ -21,7 +21,7 @@ dependencies:
   http: ^0.13.6
   material_design_icons_flutter: ^6.0.7096
   oauth2: ^2.0.1
-  webview_flutter: ^4.0.7
+  webview_flutter: ^4.2.2
 
 dev_dependencies:
   flutter_test:

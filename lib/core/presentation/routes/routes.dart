@@ -24,5 +24,9 @@ class AppRouter extends $AppRouter {
           path: '/sign-in',
           page: SignInRoute.page,
         ),
+        AutoRoute(
+          path: '/sign-in-authorization',
+          page: AuthorizationRoute.page,
+        ),
       ];
 }

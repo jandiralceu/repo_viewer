@@ -2,6 +2,8 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
+import '../../../infrastructure/infrastructure.dart';
+
 /// Definition for authorization code redirect attempt callback
 typedef Func = void Function(Uri redirectUrl);
 
@@ -29,15 +31,33 @@ class AuthorizationPage extends StatefulWidget {
 
 class _AuthorizationPageState extends State<AuthorizationPage> {
   @override
+  void initState() {
+    super.initState();
+    WebViewCookieManager().clearCookies();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final webViewController = WebViewController()
+      ..clearCache()
+      ..clearLocalStorage()
+      ..reload()
       ..setJavaScriptMode(JavaScriptMode.unrestricted)
       ..setNavigationDelegate(
         NavigationDelegate(
-          onProgress: (progress) => {},
-          onPageStarted: (url) {},
-          onPageFinished: (url) {},
-          onWebResourceError: (error) {},
+          onNavigationRequest: (request) {
+            if (request.url.startsWith(
+              GithubAuthenticator.redirectURL.toString(),
+            )) {
+              widget._onAuthorizationCodeRedirectAttempt(
+                Uri.parse(request.url),
+              );
+
+              return NavigationDecision.prevent;
+            }
+
+            return NavigationDecision.navigate;
+          },
         ),
       )
       ..loadRequest(widget._authorizationUrl);

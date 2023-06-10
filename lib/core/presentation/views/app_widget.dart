@@ -6,6 +6,7 @@ import '../../../auth/auth.dart';
 import '../../core.dart';
 
 final initializationProvider = FutureProvider<Unit>((ref) async {
+  await ref.read(sembastProvider).init();
   final authNotifier = ref.read(authNotifierProvider.notifier);
   await authNotifier.checkAndUpdateAuthStatus();
 

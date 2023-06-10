@@ -3,7 +3,7 @@ import 'routes.gr.dart';
 
 ///
 /// App route configuration
-/// Here a setted all app routes and their children routes
+/// Here are setted all app routes and their children routes
 ///
 @AutoRouterConfig(replaceInRouteName: 'Page,Route')
 class AppRouter extends $AppRouter {

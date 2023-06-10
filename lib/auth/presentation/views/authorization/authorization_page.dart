@@ -5,22 +5,22 @@ import 'package:webview_flutter/webview_flutter.dart';
 import '../../../infrastructure/infrastructure.dart';
 
 /// Definition for authorization code redirect attempt callback
-typedef Func = void Function(Uri redirectUrl);
+typedef AuthorizationCallback = void Function(Uri redirectUrl);
 
 /// Authorization sign in page
 @RoutePage()
 class AuthorizationPage extends StatefulWidget {
-  /// URL to be passed to the webviewn
+  /// URL to be passed to the webview
   final Uri _authorizationUrl;
 
   /// Authorization code redirect attempt callback
-  final Func _onAuthorizationCodeRedirectAttempt;
+  final AuthorizationCallback _onAuthorizationCodeRedirectAttempt;
 
   /// [AuthorizationPage] default constructor
   const AuthorizationPage({
     super.key,
     required Uri authorizationUrl,
-    required Func onAuthorizationCodeRedirectAttempt,
+    required AuthorizationCallback onAuthorizationCodeRedirectAttempt,
   })  : _authorizationUrl = authorizationUrl,
         _onAuthorizationCodeRedirectAttempt =
             onAuthorizationCodeRedirectAttempt;
@@ -64,9 +64,7 @@ class _AuthorizationPageState extends State<AuthorizationPage> {
 
     return Scaffold(
       body: SafeArea(
-        child: WebViewWidget(
-          controller: webViewController,
-        ),
+        child: WebViewWidget(controller: webViewController),
       ),
     );
   }

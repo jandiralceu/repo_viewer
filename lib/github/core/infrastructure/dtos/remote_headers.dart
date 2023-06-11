@@ -30,12 +30,12 @@ class RemoteHeaders with _$RemoteHeaders {
     );
   }
 
-  ///
+  /// Creates an [RemoteHeaders] instance from a JSON
   factory RemoteHeaders.fromJson(Map<String, dynamic> json) =>
       _$RemoteHeadersFromJson(json);
 }
 
-///
+/// Pagination
 @freezed
 class PaginationLink with _$PaginationLink {
   const PaginationLink._();
@@ -60,6 +60,7 @@ class PaginationLink with _$PaginationLink {
     );
   }
 
+  /// Creates an [PaginationLink] instance from a JSON
   factory PaginationLink.fromJson(Map<String, dynamic> json) =>
       _$PaginationLinkFromJson(json);
 

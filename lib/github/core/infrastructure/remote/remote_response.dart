@@ -8,11 +8,14 @@ class RemoteResponse<T> with _$RemoteResponse<T> {
   const RemoteResponse._();
 
   /// Device does not have an internet connection
-  const factory RemoteResponse.noConnection() = _NoConnection<T>;
+  const factory RemoteResponse.noConnection({required int maxPage}) =
+      _NoConnection<T>;
 
   /// Data has not modified since last request
-  const factory RemoteResponse.notModified() = _NotModified<T>;
+  const factory RemoteResponse.notModified({required int maxPage}) =
+      _NotModified<T>;
 
   /// Data has been modified since last request
-  const factory RemoteResponse.withNewData(T data) = _WithNewData<T>;
+  const factory RemoteResponse.withNewData(T data, {required int maxPage}) =
+      _WithNewData<T>;
 }

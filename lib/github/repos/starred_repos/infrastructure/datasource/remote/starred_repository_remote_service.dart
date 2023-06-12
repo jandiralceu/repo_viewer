@@ -3,11 +3,11 @@ import 'package:dio/dio.dart';
 import '../../../../../../core/core.dart';
 import '../../../../../core/core.dart';
 
-class StarredRepositoryRemoteService {
+class StarredReposRemoteService {
   final Dio _dio;
   final HeadersCache _headersCache;
 
-  StarredRepositoryRemoteService({
+  StarredReposRemoteService({
     required Dio dio,
     required HeadersCache headersCache,
   })  : _dio = dio,

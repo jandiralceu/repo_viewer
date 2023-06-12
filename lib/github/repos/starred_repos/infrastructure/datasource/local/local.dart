@@ -1,1 +1,1 @@
-export 'starred_repository_local_service.dart';
+export 'starred_repos_local_service.dart';

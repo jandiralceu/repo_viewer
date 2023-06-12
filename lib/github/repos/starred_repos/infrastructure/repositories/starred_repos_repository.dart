@@ -6,14 +6,15 @@ import '../datasource/datasource.dart';
 
 /// Starred repos repository
 class StarredReposRepository {
-  final StarredRepositoryRemoteService _remoteService;
-
-  // TODO: Local service
+  final StarredReposRemoteService _remoteService;
+  final StarredReposLocalService _localService;
 
   /// [StarredReposRepository] default constructor
   StarredReposRepository({
-    required StarredRepositoryRemoteService remoteService,
-  }) : _remoteService = remoteService;
+    required StarredReposRemoteService remoteService,
+    required StarredReposLocalService localService,
+  })  : _remoteService = remoteService,
+        _localService = localService;
 
   Future<Either<GithubFailure, Fresh<List<Repository>>>> getStarredRepositories(
     int page,
@@ -22,20 +23,28 @@ class StarredReposRepository {
       final response = await _remoteService.getStarredRepositories(page);
 
       return right(
-        response.when(
-          // TODO: Local service
-          noConnection: (maxPage) {
-            return Fresh.no([], isNextPageAvailable: page < maxPage);
+        await response.when(
+          noConnection: (maxPage) async {
+            return Fresh.no(
+              await _localService
+                  .getPage(page)
+                  .then((repos) => repos.toDomain()),
+              isNextPageAvailable: page < maxPage,
+            );
           },
-          // TODO: Local service
-          notModified: (maxPage) {
-            return Fresh.yes([], isNextPageAvailable: page < maxPage);
+          notModified: (maxPage) async {
+            return Fresh.yes(
+              await _localService
+                  .getPage(page)
+                  .then((repos) => repos.toDomain()),
+              isNextPageAvailable: page < maxPage,
+            );
           },
-          withNewData: (data, maxPage) {
-            // TODO: Save data in the local service
+          withNewData: (repos, maxPage) async {
+            await _localService.upsertPage(repos: repos, page: page);
 
             return Fresh.yes(
-              RepositoryDTO.toDomainList(data),
+              repos.toDomain(),
               isNextPageAvailable: page < maxPage,
             );
           },

@@ -45,4 +45,9 @@ class RepositoryDTO with _$RepositoryDTO {
         description: description,
         owner: owner.toDomain(),
       );
+
+  /// Converst a [List<RepositoryDTO>] to [List<Repository>]
+  static List<Repository> toDomainList(List<RepositoryDTO> repos) {
+    return repos.map((e) => e.toDomain()).toList();
+  }
 }

@@ -10,8 +10,32 @@ class Fresh<T> with _$Fresh<T> {
   /// [Fresh] default constructor
   const factory Fresh({
     required T entity,
-    required bool isFresh,
     int? maxPage,
+    @Default(false) bool isFresh,
     @Default(false) bool isNextPageAvailable,
   }) = _Fresh<T>;
+
+  /// When data is freshed
+  factory Fresh.yes(
+    T entity, {
+    bool isNextPageAvailable = false,
+  }) {
+    return Fresh(
+      entity: entity,
+      isFresh: true,
+      isNextPageAvailable: isNextPageAvailable,
+    );
+  }
+
+  /// When data is not freshed
+  factory Fresh.no(
+    T entity, {
+    bool isNextPageAvailable = false,
+  }) {
+    return Fresh(
+      entity: entity,
+      isFresh: false,
+      isNextPageAvailable: isNextPageAvailable,
+    );
+  }
 }

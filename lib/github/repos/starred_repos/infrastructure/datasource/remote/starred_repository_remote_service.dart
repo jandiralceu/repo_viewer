@@ -22,7 +22,10 @@ class StarredRepositoryRemoteService {
     final requestUri = Uri.https(
       'api.github.com',
       '/user/starred',
-      {'page': page.toString()},
+      {
+        'page': page.toString(),
+        'per_page': PaginationConfig.itemsPerPage.toString(),
+      },
     );
 
     final previousHeaders = await _headersCache.getHeaders(requestUri);

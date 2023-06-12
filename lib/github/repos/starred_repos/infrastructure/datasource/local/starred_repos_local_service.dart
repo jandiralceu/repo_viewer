@@ -1,3 +1,4 @@
+// ignore: depend_on_referenced_packages
 import 'package:collection/collection.dart';
 import 'package:repo_viewer/core/core.dart';
 import 'package:sembast/sembast.dart';

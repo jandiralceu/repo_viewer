@@ -22,7 +22,7 @@ class StarredReposRemoteService {
       {
         'page': page.toString(),
         'per_page': PaginationConfig.itemsPerPage.toString(),
-      },
+      }, // TODO: Create a model for it.
     );
 
     final previousHeaders = await _headersCache.getHeaders(requestUri);

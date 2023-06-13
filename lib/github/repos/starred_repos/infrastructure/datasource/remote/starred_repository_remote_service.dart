@@ -5,11 +5,11 @@ import '../../../../../core/core.dart';
 
 class StarredReposRemoteService {
   final Dio _dio;
-  final HeadersCache _headersCache;
+  final GithubHeadersCache _headersCache;
 
   StarredReposRemoteService({
     required Dio dio,
-    required HeadersCache headersCache,
+    required GithubHeadersCache headersCache,
   })  : _dio = dio,
         _headersCache = headersCache;
 

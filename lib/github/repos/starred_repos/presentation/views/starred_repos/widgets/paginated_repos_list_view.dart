@@ -41,16 +41,27 @@ class PaginatedReposListView extends StatelessWidget {
               data: (_) {
                 final currentRepo = _.repos.entity[index];
 
-                return const LoadingRepoTile();
-
-                // return RepoTile(
-                //   title: currentRepo.name,
-                //   description: currentRepo.description,
-                //   avatarUrl: currentRepo.owner.avatarUrlThumb,
-                //   starts: currentRepo.stars,
-                // );
+                return RepoTile(
+                  title: currentRepo.name,
+                  description: currentRepo.description,
+                  avatarUrl: currentRepo.owner.avatarUrlThumb,
+                  starts: currentRepo.stars,
+                );
               },
-              failure: (_) => const SizedBox.shrink(),
+              failure: (_) {
+                if (index < _.repos.entity.length) {
+                  final currentRepo = _.repos.entity[index];
+
+                  return RepoTile(
+                    title: currentRepo.name,
+                    description: currentRepo.description,
+                    avatarUrl: currentRepo.owner.avatarUrlThumb,
+                    starts: currentRepo.stars,
+                  );
+                } else {
+                  return FailureRepoTile(failure: _.failure);
+                }
+              },
             );
           },
         );

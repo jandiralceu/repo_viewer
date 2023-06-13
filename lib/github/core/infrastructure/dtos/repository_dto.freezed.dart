@@ -21,6 +21,7 @@ RepositoryDTO _$RepositoryDTOFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$RepositoryDTO {
   String get name => throw _privateConstructorUsedError;
+  @JsonKey(name: 'owner')
   OwnerDTO get owner => throw _privateConstructorUsedError;
   @JsonKey(fromJson: _descriptionFromJson)
   String get description => throw _privateConstructorUsedError;
@@ -43,7 +44,7 @@ abstract class $RepositoryDTOCopyWith<$Res> {
   @useResult
   $Res call(
       {String name,
-      OwnerDTO owner,
+      @JsonKey(name: 'owner') OwnerDTO owner,
       @JsonKey(fromJson: _descriptionFromJson) String description,
       @JsonKey(name: 'full_name') String fullName,
       @JsonKey(name: 'stargazers_count') int stars});
@@ -113,7 +114,7 @@ abstract class _$$_RepositoryDTOCopyWith<$Res>
   @useResult
   $Res call(
       {String name,
-      OwnerDTO owner,
+      @JsonKey(name: 'owner') OwnerDTO owner,
       @JsonKey(fromJson: _descriptionFromJson) String description,
       @JsonKey(name: 'full_name') String fullName,
       @JsonKey(name: 'stargazers_count') int stars});
@@ -169,7 +170,7 @@ class __$$_RepositoryDTOCopyWithImpl<$Res>
 class _$_RepositoryDTO extends _RepositoryDTO {
   const _$_RepositoryDTO(
       {required this.name,
-      required this.owner,
+      @JsonKey(name: 'owner') required this.owner,
       @JsonKey(fromJson: _descriptionFromJson) required this.description,
       @JsonKey(name: 'full_name') required this.fullName,
       @JsonKey(name: 'stargazers_count') required this.stars})
@@ -181,6 +182,7 @@ class _$_RepositoryDTO extends _RepositoryDTO {
   @override
   final String name;
   @override
+  @JsonKey(name: 'owner')
   final OwnerDTO owner;
   @override
   @JsonKey(fromJson: _descriptionFromJson)
@@ -233,7 +235,8 @@ class _$_RepositoryDTO extends _RepositoryDTO {
 abstract class _RepositoryDTO extends RepositoryDTO {
   const factory _RepositoryDTO(
       {required final String name,
-      required final OwnerDTO owner,
+      @JsonKey(name: 'owner')
+          required final OwnerDTO owner,
       @JsonKey(fromJson: _descriptionFromJson)
           required final String description,
       @JsonKey(name: 'full_name')
@@ -248,6 +251,7 @@ abstract class _RepositoryDTO extends RepositoryDTO {
   @override
   String get name;
   @override
+  @JsonKey(name: 'owner')
   OwnerDTO get owner;
   @override
   @JsonKey(fromJson: _descriptionFromJson)

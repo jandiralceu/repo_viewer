@@ -6,7 +6,7 @@ import 'package:sembast/sembast.dart';
 import '../../../../../core/core.dart';
 
 class StarredReposLocalService {
-  final SembastDatabase _sembastDatabase;
+  final AppLocalDatabase _sembastDatabase;
   final _store = intMapStoreFactory.store('starredRepos');
 
   StarredReposLocalService(this._sembastDatabase);

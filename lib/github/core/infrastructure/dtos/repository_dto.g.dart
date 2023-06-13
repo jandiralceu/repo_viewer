@@ -18,7 +18,7 @@ _$_RepositoryDTO _$$_RepositoryDTOFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$$_RepositoryDTOToJson(_$_RepositoryDTO instance) =>
     <String, dynamic>{
       'name': instance.name,
-      'owner': instance.owner,
+      'owner': instance.owner.toJson(),
       'description': instance.description,
       'full_name': instance.fullName,
       'stargazers_count': instance.stars,

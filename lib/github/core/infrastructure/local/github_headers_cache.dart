@@ -4,15 +4,16 @@ import '../../../../core/core.dart';
 import '../dtos/dtos.dart';
 
 class GithubHeadersCache {
-  final SembastDatabase _database;
+  final AppLocalDatabase _database;
   final _store = stringMapStoreFactory.store('headers');
 
   GithubHeadersCache(this._database);
 
   Future<void> saveHeaders(Uri uri, RemoteHeaders headers) async {
-    await _store
-        .record(uri.toString())
-        .put(_database.instance, headers.toJson());
+    await _store.record(uri.toString()).put(
+          _database.instance,
+          headers.toJson(),
+        );
   }
 
   Future<RemoteHeaders?> getHeaders(Uri uri) async {

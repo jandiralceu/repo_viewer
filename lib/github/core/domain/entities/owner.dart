@@ -12,4 +12,6 @@ class Owner with _$Owner {
     required String name,
     required String avatarUrl,
   }) = _Owner;
+
+  String get avatarUrlThumb => '$avatarUrl&s=64';
 }

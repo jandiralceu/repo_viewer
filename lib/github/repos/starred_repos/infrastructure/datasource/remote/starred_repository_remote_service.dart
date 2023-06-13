@@ -37,6 +37,8 @@ class StarredReposRemoteService {
         ),
       );
 
+      print('Here is the ${response.data}');
+
       if (response.statusCode == 304) {
         return RemoteResponse.notModified(
           maxPage: previousHeaders?.link?.maxPage ?? 0,
@@ -44,7 +46,7 @@ class StarredReposRemoteService {
       } else if (response.statusCode == 200) {
         final headers = RemoteHeaders.parse(response);
 
-        await _headersCache.saveHeaders(requestUri, headers);
+        // await _headersCache.saveHeaders(requestUri, headers);
 
         final repositories = (response.data as List<dynamic>)
             .map((e) => RepositoryDTO.fromJson(e as Map<String, dynamic>))

@@ -18,7 +18,7 @@ class RepositoryDTO with _$RepositoryDTO {
   /// [RepositoryDTO] default constructor
   const factory RepositoryDTO({
     required String name,
-    required OwnerDTO owner,
+    @JsonKey(name: 'owner') required OwnerDTO owner,
     @JsonKey(fromJson: _descriptionFromJson) required String description,
     @JsonKey(name: 'full_name') required String fullName,
     @JsonKey(name: 'stargazers_count') required int stars,

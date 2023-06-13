@@ -24,13 +24,32 @@ class PaginatedReposListView extends StatelessWidget {
           itemBuilder: (context, index) {
             return state.map(
               initial: (_) => const SizedBox.shrink(),
-              loading: (_) => const SizedBox.shrink(),
-              data: (_) => RepoTile(
-                title: _.repos.entity[index].name,
-                description: _.repos.entity[index].description,
-                avatarUrl: _.repos.entity[index].owner.avatarUrlThumb,
-                starts: _.repos.entity[index].stars,
-              ),
+              loading: (_) {
+                if (index < _.repos.entity.length) {
+                  final currentRepo = _.repos.entity[index];
+
+                  return RepoTile(
+                    title: currentRepo.name,
+                    description: currentRepo.description,
+                    avatarUrl: currentRepo.owner.avatarUrlThumb,
+                    starts: currentRepo.stars,
+                  );
+                } else {
+                  return const LoadingRepoTile();
+                }
+              },
+              data: (_) {
+                final currentRepo = _.repos.entity[index];
+
+                return const LoadingRepoTile();
+
+                // return RepoTile(
+                //   title: currentRepo.name,
+                //   description: currentRepo.description,
+                //   avatarUrl: currentRepo.owner.avatarUrlThumb,
+                //   starts: currentRepo.stars,
+                // );
+              },
               failure: (_) => const SizedBox.shrink(),
             );
           },

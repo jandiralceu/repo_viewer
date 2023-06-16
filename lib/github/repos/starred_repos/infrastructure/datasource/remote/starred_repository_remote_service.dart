@@ -37,8 +37,6 @@ class StarredReposRemoteService {
         ),
       );
 
-      print('Here is the ${response.data}');
-
       if (response.statusCode == 304) {
         return RemoteResponse.notModified(
           maxPage: previousHeaders?.link?.maxPage ?? 0,
@@ -59,7 +57,7 @@ class StarredReposRemoteService {
       } else {
         throw RestApiException(response.statusCode);
       }
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       if (e.isNoConnectionError) {
         return RemoteResponse.noConnection(
           maxPage: previousHeaders?.link?.maxPage ?? 0,

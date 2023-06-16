@@ -109,7 +109,7 @@ class GithubAuthenticator {
             headers: {'Authorization': 'basic $usernameAndPassword'},
           ),
         );
-      } on DioError catch (e) {
+      } on DioException catch (e) {
         if (e.isNoConnectionError) {
           // pass
         } else {

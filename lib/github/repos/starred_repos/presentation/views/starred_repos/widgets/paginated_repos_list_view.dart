@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../../../../../../../core/core.dart';
 import '../../../../../../core/core.dart';
 import '../../../../application/application.dart';
 
@@ -14,7 +15,8 @@ class PaginatedReposListView extends StatefulWidget {
 }
 
 class _PaginatedReposListViewState extends State<PaginatedReposListView> {
-  bool canLoadNextPage = false;
+  var _canLoadNextPage = false;
+  var _hasActiveToast = false;
 
   @override
   Widget build(BuildContext context) {
@@ -26,10 +28,22 @@ class _PaginatedReposListViewState extends State<PaginatedReposListView> {
           starredReposNotifierProvider,
           (__, newState) {
             newState.map(
-              initial: (_) => canLoadNextPage = true,
-              loading: (_) => canLoadNextPage = false,
-              data: (_) => canLoadNextPage = _.isNextPageAvailable,
-              failure: (_) => canLoadNextPage = false,
+              initial: (_) => _canLoadNextPage = true,
+              loading: (_) => _canLoadNextPage = false,
+              data: (_) {
+                if (!_.repos.isFresh && !_hasActiveToast) {
+                  _hasActiveToast = true;
+
+                  showNoConnectionToast(
+                    context,
+                    message:
+                        "You're not online. Some information may be outdated!",
+                  );
+                }
+
+                return _canLoadNextPage = _.isNextPageAvailable;
+              },
+              failure: (_) => _canLoadNextPage = false,
             );
           },
         );
@@ -40,8 +54,8 @@ class _PaginatedReposListViewState extends State<PaginatedReposListView> {
             final limit =
                 metrics.maxScrollExtent - metrics.viewportDimension / 3;
 
-            if (canLoadNextPage && metrics.pixels >= limit) {
-              canLoadNextPage = false;
+            if (_canLoadNextPage && metrics.pixels >= limit) {
+              _canLoadNextPage = false;
               ref
                   .read(starredReposNotifierProvider.notifier)
                   .getNextStarredReposPage();

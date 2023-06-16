@@ -34,7 +34,6 @@ class Fresh<T> with _$Fresh<T> {
   }) {
     return Fresh(
       entity: entity,
-      isFresh: false,
       isNextPageAvailable: isNextPageAvailable,
     );
   }

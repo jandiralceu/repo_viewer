@@ -63,7 +63,15 @@ class _PaginatedReposListViewState extends State<PaginatedReposListView> {
 
             return false;
           },
-          child: _PaginatedListView(state: state),
+          child: state.maybeWhen(
+            orElse: () => false,
+            data: (repos, _) => repos.entity.isEmpty,
+          )
+              ? const NoResultPage(
+                  message:
+                      "That's about everything we could find in your starred repos right now.",
+                )
+              : _PaginatedListView(state: state),
         );
       },
     );

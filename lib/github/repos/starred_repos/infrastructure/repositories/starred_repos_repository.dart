@@ -24,12 +24,13 @@ class StarredReposRepository {
 
       return right(
         await response.when(
-          noConnection: (maxPage) async {
+          noConnection: () async {
             return Fresh.no(
               await _localService
                   .getPage(page)
                   .then((repos) => repos.toDomain()),
-              isNextPageAvailable: page < maxPage,
+              isNextPageAvailable:
+                  page < await _localService.getLocalPageCount(),
             );
           },
           notModified: (maxPage) async {

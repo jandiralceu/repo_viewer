@@ -52,7 +52,7 @@ class StarredReposNotifier extends StateNotifier<StarredReposState> {
       PaginationConfig.itemsPerPage,
     );
 
-    final response = await _repository.getStarredRepositories(_page);
+    final response = await _repository.getStarredRepos(_page);
     state = response.fold(
       (failure) => StarredReposState.failure(state.repos, failure),
       (repos) {

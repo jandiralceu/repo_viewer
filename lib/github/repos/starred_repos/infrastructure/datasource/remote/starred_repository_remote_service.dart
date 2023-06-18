@@ -1,70 +1,21 @@
-import 'package:dio/dio.dart';
-
-import '../../../../../../core/core.dart';
 import '../../../../../core/core.dart';
+import '../../../../core/core.dart';
 
-class StarredReposRemoteService {
-  final Dio _dio;
-  final GithubHeadersCache _headersCache;
-
+class StarredReposRemoteService extends ReposRemoteService {
   StarredReposRemoteService({
-    required Dio dio,
-    required GithubHeadersCache headersCache,
-  })  : _dio = dio,
-        _headersCache = headersCache;
+    required super.dio,
+    required super.headersCache,
+  });
 
-  Future<RemoteResponse<List<RepositoryDTO>>> getStarredRepositories(
-    int page,
-  ) async {
-    final requestUri = Uri.https(
-      'api.github.com',
-      '/user/starred',
-      {
-        'page': page.toString(),
-        'per_page': PaginationConfig.itemsPerPage.toString(),
-      }, // TODO: Create a model for it.
-    );
-
-    final previousHeaders = await _headersCache.getHeaders(requestUri);
-
-    try {
-      final response = await _dio.getUri(
-        requestUri,
-        options: Options(
-          headers: {
-            'If-None-Match': previousHeaders?.etag ?? '',
-          },
+  Future<RemoteResponse<List<RepositoryDTO>>> getStarredRepos({
+    required ReposParamsDTO params,
+  }) async =>
+      super.getPage(
+        requestUri: Uri.https(
+          'api.github.com',
+          '/user/starred',
+          params.toJson(),
         ),
+        jsonDataSelector: (json) => json as List<dynamic>,
       );
-
-      if (response.statusCode == 304) {
-        return RemoteResponse.notModified(
-          maxPage: previousHeaders?.link?.maxPage ?? 0,
-        );
-      } else if (response.statusCode == 200) {
-        final headers = RemoteHeaders.parse(response);
-
-        // await _headersCache.saveHeaders(requestUri, headers);
-
-        final repositories = (response.data as List<dynamic>)
-            .map((e) => RepositoryDTO.fromJson(e as Map<String, dynamic>))
-            .toList();
-
-        return RemoteResponse.withNewData(
-          repositories,
-          maxPage: headers.link?.maxPage ?? 1,
-        );
-      } else {
-        throw RestApiException(response.statusCode);
-      }
-    } on DioException catch (e) {
-      if (e.isNoConnectionError) {
-        return const RemoteResponse.noConnection();
-      } else if (e.response != null) {
-        throw RestApiException(e.response?.statusCode);
-      } else {
-        rethrow;
-      }
-    }
-  }
 }

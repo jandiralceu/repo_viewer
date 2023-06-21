@@ -26,7 +26,25 @@ final starredReposRepositoryProvider = Provider(
   ),
 );
 
-final starredReposNotifierProvider =
-    StateNotifierProvider<StarredReposNotifier, StarredReposState>(
+final starredReposNotifierProvider = StateNotifierProvider.autoDispose<
+    StarredReposNotifier, PaginatedReposState>(
   (ref) => StarredReposNotifier(ref.watch(starredReposRepositoryProvider)),
+);
+
+final searchedReposRemoteServiceProvider = Provider(
+  (ref) => SearchedReposRemoteService(
+    dio: ref.watch(dioProvider),
+    headersCache: ref.watch(githubHeaderCacheProvider),
+  ),
+);
+
+final searchedReposRepositoryProvider = Provider(
+  (ref) => SearchedReposRepository(
+    remoteService: ref.watch(searchedReposRemoteServiceProvider),
+  ),
+);
+
+final searchedReposNotifierProvider = StateNotifierProvider.autoDispose<
+    SearchedReposNotifier, PaginatedReposState>(
+  (ref) => SearchedReposNotifier(ref.watch(searchedReposRepositoryProvider)),
 );

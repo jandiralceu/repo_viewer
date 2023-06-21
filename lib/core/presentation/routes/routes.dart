@@ -21,6 +21,10 @@ class AppRouter extends $AppRouter {
           page: StarredReposRoute.page,
         ),
         AutoRoute(
+          path: '/search',
+          page: SearchedReposRoute.page,
+        ),
+        AutoRoute(
           path: '/sign-in',
           page: SignInRoute.page,
         ),

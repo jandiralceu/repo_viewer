@@ -2,20 +2,20 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:repo_viewer/core/core.dart';
 
 import '../../../../../../auth/auth.dart';
 import '../../../../../core/core.dart';
-import 'widgets/widgets.dart';
 
 @RoutePage()
 class StarredReposPage extends ConsumerStatefulWidget {
   const StarredReposPage({super.key});
 
   @override
-  StarredReposPageState createState() => StarredReposPageState();
+  _StarredReposPageState createState() => _StarredReposPageState();
 }
 
-class StarredReposPageState extends ConsumerState<StarredReposPage> {
+class _StarredReposPageState extends ConsumerState<StarredReposPage> {
   @override
   void initState() {
     super.initState();
@@ -38,10 +38,27 @@ class StarredReposPageState extends ConsumerState<StarredReposPage> {
             onPressed: () {
               ref.read(authNotifierProvider.notifier).signOut();
             },
+          ),
+          IconButton(
+            icon: const Icon(MdiIcons.magnify),
+            onPressed: () {
+              AutoRouter.of(context).push(
+                SearchedReposRoute(searchTerm: 'flutter'),
+              );
+            },
           )
         ],
       ),
-      body: const PaginatedReposListView(),
+      body: PaginatedReposListView(
+        paginatedReposNotifierProvider: starredReposNotifierProvider,
+        getNextPage: (WidgetRef ref) {
+          ref
+              .read(starredReposNotifierProvider.notifier)
+              .getNextStarredReposPage();
+        },
+        noResultMessage:
+            "That's about everything we could find in your starred repos right now.",
+      ),
     );
   }
 }

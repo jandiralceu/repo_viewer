@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:material_floating_search_bar_2/material_floating_search_bar_2.dart';
 import 'package:repo_viewer/github/github.dart';
 
 import '../../../../core/core.dart';
@@ -95,31 +96,38 @@ class _PaginatedListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: state.map(
-        initial: (_) => 0,
-        loading: (_) => _.repos.entity.length + _.itemsPerPage,
-        data: (_) => _.repos.entity.length,
-        failure: (_) => _.repos.entity.length + 1,
+    final topSpacing = FloatingSearchBar.of(context)?.widget.height;
+
+    return Padding(
+      padding: topSpacing == null
+          ? EdgeInsets.zero
+          : EdgeInsets.only(top: topSpacing + 10),
+      child: ListView.builder(
+        itemCount: state.map(
+          initial: (_) => 0,
+          loading: (_) => _.repos.entity.length + _.itemsPerPage,
+          data: (_) => _.repos.entity.length,
+          failure: (_) => _.repos.entity.length + 1,
+        ),
+        itemBuilder: (context, index) {
+          return state.map(
+            initial: (_) => const SizedBox.shrink(),
+            loading: (_) {
+              return index < _.repos.entity.length
+                  ? _buildRepoTile(_.repos.entity[index])
+                  : const LoadingRepoTile();
+            },
+            data: (_) {
+              return _buildRepoTile(_.repos.entity[index]);
+            },
+            failure: (_) {
+              return index < _.repos.entity.length
+                  ? _buildRepoTile(_.repos.entity[index])
+                  : FailureRepoTile(failure: _.failure);
+            },
+          );
+        },
       ),
-      itemBuilder: (context, index) {
-        return state.map(
-          initial: (_) => const SizedBox.shrink(),
-          loading: (_) {
-            return index < _.repos.entity.length
-                ? _buildRepoTile(_.repos.entity[index])
-                : const LoadingRepoTile();
-          },
-          data: (_) {
-            return _buildRepoTile(_.repos.entity[index]);
-          },
-          failure: (_) {
-            return index < _.repos.entity.length
-                ? _buildRepoTile(_.repos.entity[index])
-                : FailureRepoTile(failure: _.failure);
-          },
-        );
-      },
     );
   }
 

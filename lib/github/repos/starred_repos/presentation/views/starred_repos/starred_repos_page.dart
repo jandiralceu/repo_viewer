@@ -20,17 +20,17 @@ class _StarredReposPageState extends ConsumerState<StarredReposPage> {
   void initState() {
     super.initState();
 
-    // Future.microtask(
-    //   () => ref
-    //       .read(starredReposNotifierProvider.notifier)
-    //       .getNextStarredReposPage(),
-    // );
-    ref.read(starredReposNotifierProvider.notifier).getNextStarredReposPage();
+    Future.microtask(
+      () => ref
+          .read(starredReposNotifierProvider.notifier)
+          .getNextStarredReposPage(),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: AppSearchBar(
         title: 'Starred repositories',
         hint: 'Search all repositories',
@@ -40,15 +40,17 @@ class _StarredReposPageState extends ConsumerState<StarredReposPage> {
             SearchedReposRoute(searchTerm: term),
           );
         },
-        body: PaginatedReposListView(
-          paginatedReposNotifierProvider: starredReposNotifierProvider,
-          getNextPage: (WidgetRef ref) {
-            ref
-                .read(starredReposNotifierProvider.notifier)
-                .getNextStarredReposPage();
-          },
-          noResultMessage:
-              "That's about everything we could find in your starred repos right now.",
+        body: SafeArea(
+          child: PaginatedReposListView(
+            paginatedReposNotifierProvider: starredReposNotifierProvider,
+            getNextPage: (WidgetRef ref) {
+              ref
+                  .read(starredReposNotifierProvider.notifier)
+                  .getNextStarredReposPage();
+            },
+            noResultMessage:
+                "That's about everything we could find in your starred repos right now.",
+          ),
         ),
       ),
     );

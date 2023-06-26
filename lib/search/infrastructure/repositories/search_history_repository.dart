@@ -22,6 +22,18 @@ class SearHistoryRepository {
               : null,
         )
         .onSnapshots(_sembastDatabase.instance)
-        .map((records) => records.map((e) => e.value).toList());
+        .map((records) => records.reversed.map((e) => e.value).toList());
+  }
+
+  Future<void> addSearchTerm(String term) async {
+    await _store.add(_sembastDatabase.instance, term);
+    final count = await _store.count(_sembastDatabase.instance);
+
+    if (count > historyLength) {
+      await _store.delete(
+        _sembastDatabase.instance,
+        finder: Finder(limit: count - historyLength, offset: 0),
+      );
+    }
   }
 }

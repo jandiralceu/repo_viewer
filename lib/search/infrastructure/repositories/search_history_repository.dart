@@ -2,11 +2,11 @@ import 'package:sembast/sembast.dart';
 
 import '../../../core/core.dart';
 
-class SearHistoryRepository {
+class SearchHistoryRepository {
   final AppLocalDatabase _sembastDatabase;
   final _store = StoreRef<int, String>("searchHistory");
 
-  SearHistoryRepository(this._sembastDatabase);
+  SearchHistoryRepository(this._sembastDatabase);
 
   static const historyLength = 20;
 
@@ -40,9 +40,9 @@ class SearHistoryRepository {
     );
   }
 
-  Future<void> _addSearchTerm(String term, DatabaseClient dbclient) async {
+  Future<void> _addSearchTerm(String term, DatabaseClient dbClient) async {
     final hasTerm = await _store.findKey(
-      dbclient,
+      dbClient,
       finder: Finder(
         filter: Filter.custom(
           (record) => record.value == term,
@@ -55,20 +55,20 @@ class SearHistoryRepository {
       return;
     }
 
-    await _store.add(dbclient, term);
-    final count = await _store.count(dbclient);
+    await _store.add(dbClient, term);
+    final count = await _store.count(dbClient);
 
     if (count > historyLength) {
       await _store.delete(
-        dbclient,
+        dbClient,
         finder: Finder(limit: count - historyLength, offset: 0),
       );
     }
   }
 
-  Future<void> _deleteSearchTerm(String term, DatabaseClient dbclient) async {
+  Future<void> _deleteSearchTerm(String term, DatabaseClient dbClient) async {
     await _store.delete(
-      dbclient,
+      dbClient,
       finder: Finder(
         filter: Filter.custom(
           (record) => record.value == term,

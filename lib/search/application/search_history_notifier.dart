@@ -2,7 +2,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../infrastructure/infrastructure.dart';
 
 class SearchHistoryNotifier extends StateNotifier<AsyncValue<List<String>>> {
-  final SearHistoryRepository _repository;
+  final SearchHistoryRepository _repository;
 
   SearchHistoryNotifier(this._repository) : super(const AsyncValue.loading());
 

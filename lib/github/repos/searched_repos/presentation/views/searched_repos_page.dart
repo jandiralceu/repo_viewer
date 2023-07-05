@@ -4,6 +4,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 import '../../../../../auth/auth.dart';
+import '../../../../../core/presentation/presentation.dart';
+import '../../../../../search/presentation/views/views.dart';
 import '../../../../core/core.dart';
 
 @RoutePage()
@@ -24,7 +26,7 @@ class _SearchedReposPageState extends ConsumerState<SearchedReposPage> {
     Future.microtask(
       () => ref
           .read(searchedReposNotifierProvider.notifier)
-          .getNextSearchedReposPage(widget.searchTerm),
+          .getFirstSearchedReposPage(widget.searchTerm),
     );
   }
 
@@ -42,14 +44,25 @@ class _SearchedReposPageState extends ConsumerState<SearchedReposPage> {
           )
         ],
       ),
-      body: PaginatedReposListView(
-        paginatedReposNotifierProvider: searchedReposNotifierProvider,
-        getNextPage: (WidgetRef ref) {
-          ref
-              .read(searchedReposNotifierProvider.notifier)
-              .getNextSearchedReposPage(widget.searchTerm);
+      body: AppSearchBar(
+        title: 'Starred repositories',
+        hint: 'Search all repositories',
+        onSignOut: () => ref.read(authNotifierProvider.notifier).signOut(),
+        onShouldNavigateToResultPage: (term) {
+          AutoRouter.of(context).pushAndPopUntil(
+            SearchedReposRoute(searchTerm: term),
+            predicate: (route) => route.settings.name == StarredReposRoute.name,
+          );
         },
-        noResultMessage: "This is all we could find for your search term.",
+        body: PaginatedReposListView(
+          paginatedReposNotifierProvider: searchedReposNotifierProvider,
+          getNextPage: (WidgetRef ref) {
+            ref
+                .read(searchedReposNotifierProvider.notifier)
+                .getNextSearchedReposPage(widget.searchTerm);
+          },
+          noResultMessage: "This is all we could find for your search term.",
+        ),
       ),
     );
   }

@@ -1,7 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 import '../../../../../auth/auth.dart';
 import '../../../../../core/presentation/presentation.dart';
@@ -33,19 +32,8 @@ class _SearchedReposPageState extends ConsumerState<SearchedReposPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.searchTerm),
-        actions: [
-          IconButton(
-            icon: const Icon(MdiIcons.logoutVariant),
-            onPressed: () {
-              ref.read(authNotifierProvider.notifier).signOut();
-            },
-          )
-        ],
-      ),
       body: AppSearchBar(
-        title: 'Starred repositories',
+        title: widget.searchTerm,
         hint: 'Search all repositories',
         onSignOut: () => ref.read(authNotifierProvider.notifier).signOut(),
         onShouldNavigateToResultPage: (term) {

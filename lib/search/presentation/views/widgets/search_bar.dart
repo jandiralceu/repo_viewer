@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
@@ -31,6 +34,24 @@ class AppSearchBar extends ConsumerStatefulWidget {
 class _SearchBarState extends ConsumerState<AppSearchBar> {
   late FloatingSearchBarController _searchBarController;
 
+  Widget _backButton() {
+    if (Platform.isIOS) {
+      return IconButton(
+        onPressed: () => AutoRouter.of(context).pop(),
+        icon: const Icon(
+          Icons.arrow_back_ios,
+        ),
+      );
+    }
+
+    return IconButton(
+      onPressed: () => AutoRouter.of(context).pop(),
+      icon: const Icon(
+        Icons.arrow_back,
+      ),
+    );
+  }
+
   @override
   void initState() {
     super.initState();
@@ -51,6 +72,9 @@ class _SearchBarState extends ConsumerState<AppSearchBar> {
   @override
   Widget build(BuildContext context) {
     return FloatingSearchBar(
+      automaticallyImplyBackButton: false,
+      leadingActions:
+          AutoRouter.of(context).canNavigateBack ? [_backButton()] : null,
       controller: _searchBarController,
       title: Column(
         mainAxisSize: MainAxisSize.min,

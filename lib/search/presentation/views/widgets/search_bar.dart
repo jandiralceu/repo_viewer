@@ -87,22 +87,31 @@ class _SearchBarState extends ConsumerState<AppSearchBar> {
         )
       ],
       builder: (context, transition) {
-        return Consumer(
-          builder: (context, ref, child) {
-            final searchHistory = ref.watch(searchHistoryNotifierProvider);
+        return Material(
+          elevation: 4,
+          borderRadius: BorderRadius.circular(8),
+          clipBehavior: Clip.hardEdge,
+          color: Theme.of(context).cardColor,
+          child: Consumer(
+            builder: (context, ref, child) {
+              final searchHistory = ref.watch(searchHistoryNotifierProvider);
 
-            return searchHistory.map(
-              data: (history) {
-                return Column(
-                  children: history.value
-                      .map((term) => ListTile(title: Text(term)))
-                      .toList(),
-                );
-              },
-              error: (_) => const ListTile(title: Text('Try again later.')),
-              loading: (_) => const ListTile(title: LinearProgressIndicator()),
-            );
-          },
+              return searchHistory.map(
+                data: (history) {
+                  return Column(
+                    children: history.value
+                        .map(
+                          (term) => ListTile(title: Text(term), onTap: () {}),
+                        )
+                        .toList(),
+                  );
+                },
+                error: (_) => const ListTile(title: Text('Try again later.')),
+                loading: (_) =>
+                    const ListTile(title: LinearProgressIndicator()),
+              );
+            },
+          ),
         );
       },
     );

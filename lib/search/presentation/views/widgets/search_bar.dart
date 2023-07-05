@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:material_floating_search_bar_2/material_floating_search_bar_2.dart';
 
 import '../../../shared/shared.dart';
@@ -57,6 +58,18 @@ class _SearchBarState extends ConsumerState<AppSearchBar> {
       hint: widget.hint,
       body: FloatingSearchBarScrollNotifier(child: widget.body),
       onSubmitted: widget.onShouldNavigateToResultPage,
+      actions: [
+        FloatingSearchBarAction.searchToClear(showIfClosed: false),
+        FloatingSearchBarAction(
+          child: IconButton(
+            icon: const Icon(MdiIcons.logoutVariant),
+            splashRadius: 18,
+            onPressed: () {
+              // widget.onSignOut();
+            },
+          ),
+        )
+      ],
       builder: (context, transition) {
         return Container();
       },

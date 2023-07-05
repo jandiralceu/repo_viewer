@@ -29,9 +29,13 @@ class AppSearchBar extends ConsumerStatefulWidget {
 }
 
 class _SearchBarState extends ConsumerState<AppSearchBar> {
+  late FloatingSearchBarController _searchBarController;
+
   @override
   void initState() {
     super.initState();
+
+    _searchBarController = FloatingSearchBarController();
 
     Future.microtask(
       () => ref.read(searchHistoryNotifierProvider.notifier).watchSearchTerms(),
@@ -39,8 +43,15 @@ class _SearchBarState extends ConsumerState<AppSearchBar> {
   }
 
   @override
+  void dispose() {
+    _searchBarController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return FloatingSearchBar(
+      controller: _searchBarController,
       title: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -57,7 +68,12 @@ class _SearchBarState extends ConsumerState<AppSearchBar> {
       ),
       hint: widget.hint,
       body: FloatingSearchBarScrollNotifier(child: widget.body),
-      onSubmitted: widget.onShouldNavigateToResultPage,
+      onSubmitted: (term) {
+        widget.onShouldNavigateToResultPage(term);
+        ref.read(searchHistoryNotifierProvider.notifier).addSearchTerm(term);
+
+        _searchBarController.close();
+      },
       actions: [
         FloatingSearchBarAction.searchToClear(showIfClosed: false),
         FloatingSearchBarAction(
@@ -71,7 +87,23 @@ class _SearchBarState extends ConsumerState<AppSearchBar> {
         )
       ],
       builder: (context, transition) {
-        return Container();
+        return Consumer(
+          builder: (context, ref, child) {
+            final searchHistory = ref.watch(searchHistoryNotifierProvider);
+
+            return searchHistory.map(
+              data: (history) {
+                return Column(
+                  children: history.value
+                      .map((term) => ListTile(title: Text(term)))
+                      .toList(),
+                );
+              },
+              error: (_) => const ListTile(title: Text('Try again later.')),
+              loading: (_) => const ListTile(title: LinearProgressIndicator()),
+            );
+          },
+        );
       },
     );
   }

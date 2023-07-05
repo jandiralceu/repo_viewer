@@ -32,7 +32,7 @@ class _SearchedReposPageState extends ConsumerState<SearchedReposPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Searched Repos'),
+        title: Text(widget.searchTerm),
         actions: [
           IconButton(
             icon: const Icon(MdiIcons.logoutVariant),

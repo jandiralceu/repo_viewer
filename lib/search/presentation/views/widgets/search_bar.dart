@@ -40,9 +40,22 @@ class _SearchBarState extends ConsumerState<AppSearchBar> {
   @override
   Widget build(BuildContext context) {
     return FloatingSearchBar(
-      title: Text(widget.title),
+      title: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            widget.title,
+            style: Theme.of(context).textTheme.titleLarge,
+          ),
+          Text(
+            'Tap to search ☝️',
+            style: Theme.of(context).textTheme.bodySmall,
+          ),
+        ],
+      ),
       hint: widget.hint,
-      body: widget.body,
+      body: FloatingSearchBarScrollNotifier(child: widget.body),
       onSubmitted: widget.onShouldNavigateToResultPage,
       builder: (context, transition) {
         return Container();

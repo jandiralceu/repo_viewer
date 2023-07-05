@@ -40,17 +40,15 @@ class _StarredReposPageState extends ConsumerState<StarredReposPage> {
             SearchedReposRoute(searchTerm: term),
           );
         },
-        body: SafeArea(
-          child: PaginatedReposListView(
-            paginatedReposNotifierProvider: starredReposNotifierProvider,
-            getNextPage: (WidgetRef ref) {
-              ref
-                  .read(starredReposNotifierProvider.notifier)
-                  .getNextStarredReposPage();
-            },
-            noResultMessage:
-                "That's about everything we could find in your starred repos right now.",
-          ),
+        body: PaginatedReposListView(
+          paginatedReposNotifierProvider: starredReposNotifierProvider,
+          getNextPage: (WidgetRef ref) {
+            ref
+                .read(starredReposNotifierProvider.notifier)
+                .getNextStarredReposPage();
+          },
+          noResultMessage:
+              "That's about everything we could find in your starred repos right now.",
         ),
       ),
     );

@@ -34,24 +34,6 @@ class AppSearchBar extends ConsumerStatefulWidget {
 class _SearchBarState extends ConsumerState<AppSearchBar> {
   late FloatingSearchBarController _searchBarController;
 
-  Widget _backButton() {
-    if (Platform.isIOS) {
-      return IconButton(
-        onPressed: () => AutoRouter.of(context).pop(),
-        icon: const Icon(
-          Icons.arrow_back_ios,
-        ),
-      );
-    }
-
-    return IconButton(
-      onPressed: () => AutoRouter.of(context).pop(),
-      icon: const Icon(
-        Icons.arrow_back,
-      ),
-    );
-  }
-
   @override
   void initState() {
     super.initState();
@@ -73,8 +55,16 @@ class _SearchBarState extends ConsumerState<AppSearchBar> {
   Widget build(BuildContext context) {
     return FloatingSearchBar(
       automaticallyImplyBackButton: false,
-      leadingActions:
-          AutoRouter.of(context).canNavigateBack ? [_backButton()] : null,
+      leadingActions: AutoRouter.of(context).canNavigateBack
+          ? [
+              IconButton(
+                onPressed: () => AutoRouter.of(context).pop(),
+                icon: Icon(
+                  Platform.isIOS ? Icons.arrow_back_ios : Icons.arrow_back,
+                ),
+              )
+            ]
+          : null,
       controller: _searchBarController,
       title: Column(
         mainAxisSize: MainAxisSize.min,

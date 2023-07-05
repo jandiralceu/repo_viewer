@@ -68,12 +68,12 @@ class _SearchBarState extends ConsumerState<AppSearchBar> {
       ),
       hint: widget.hint,
       body: FloatingSearchBarScrollNotifier(child: widget.body),
-      onSubmitted: (term) {
-        widget.onShouldNavigateToResultPage(term);
-        ref.read(searchHistoryNotifierProvider.notifier).addSearchTerm(term);
-
-        _searchBarController.close();
+      onQueryChanged: (query) {
+        ref
+            .read(searchHistoryNotifierProvider.notifier)
+            .watchSearchTerms(filter: query);
       },
+      onSubmitted: _pushPageAndAddTermToHistory,
       actions: [
         FloatingSearchBarAction.searchToClear(showIfClosed: false),
         FloatingSearchBarAction(
@@ -98,10 +98,56 @@ class _SearchBarState extends ConsumerState<AppSearchBar> {
 
               return searchHistory.map(
                 data: (history) {
+                  final query = _searchBarController.query;
+
+                  if (query.isEmpty && history.value.isEmpty) {
+                    return Container(
+                      height: 56,
+                      alignment: Alignment.center,
+                      child: Text(
+                        'Start searching...',
+                        style: Theme.of(context).textTheme.bodySmall,
+                      ),
+                    );
+                  } else if (history.value.isEmpty) {
+                    return ListTile(
+                      title: Text(query),
+                      leading: const Icon(Icons.search),
+                      onTap: () {
+                        _pushPageAndAddTermToHistory(query);
+                      },
+                    );
+                  }
+
                   return Column(
                     children: history.value
                         .map(
-                          (term) => ListTile(title: Text(term), onTap: () {}),
+                          (term) => ListTile(
+                            title: Text(
+                              term,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                            leading: const Icon(Icons.history),
+                            trailing: IconButton(
+                              icon: const Icon(Icons.clear),
+                              onPressed: () {
+                                ref
+                                    .read(
+                                      searchHistoryNotifierProvider.notifier,
+                                    )
+                                    .deleteSearchTerm(term);
+                              },
+                            ),
+                            onTap: () {
+                              widget.onShouldNavigateToResultPage(term);
+                              ref
+                                  .read(searchHistoryNotifierProvider.notifier)
+                                  .putSearchTermFirst(term);
+
+                              _searchBarController.close();
+                            },
+                          ),
                         )
                         .toList(),
                   );
@@ -115,5 +161,12 @@ class _SearchBarState extends ConsumerState<AppSearchBar> {
         );
       },
     );
+  }
+
+  void _pushPageAndAddTermToHistory(String term) {
+    widget.onShouldNavigateToResultPage(term);
+    ref.read(searchHistoryNotifierProvider.notifier).addSearchTerm(term);
+
+    _searchBarController.close();
   }
 }

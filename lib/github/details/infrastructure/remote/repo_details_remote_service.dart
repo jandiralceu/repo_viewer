@@ -52,4 +52,40 @@ class RepoDetailsRemoteService {
       }
     }
   }
+
+  /// Returns `null` if there's no internet connection
+  Future<bool?> getStarredStatus(String repoFullname) async {
+    final requestUri = Uri.https(
+      'api.github.com',
+      '/user/starred/$repoFullname',
+    );
+
+    try {
+      final response = await _dio.getUri(
+        requestUri,
+        options: Options(
+          validateStatus: (status) {
+            return (status != null && status >= 200 && status < 400) ||
+                status == 404;
+          },
+        ),
+      );
+
+      if (response.statusCode == 204) {
+        return true;
+      } else if (response.statusCode == 404) {
+        return false;
+      } else {
+        throw RestApiException(response.statusCode);
+      }
+    } on DioException catch (e) {
+      if (e.isNoConnectionError) {
+        return null;
+      } else if (e.response != null) {
+        throw RestApiException(e.response?.statusCode);
+      } else {
+        rethrow;
+      }
+    }
+  }
 }

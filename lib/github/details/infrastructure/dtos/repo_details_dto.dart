@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:sembast/sembast.dart';
 
 import '../../domain/domain.dart';
 
@@ -25,6 +26,12 @@ class RepoDetailsDTO with _$RepoDetailsDTO {
         htmlContent: _.htmlContent,
         repositoryFullname: _.repositoryFullname,
       );
+
+  factory RepoDetailsDTO.fromSembast(
+    RecordSnapshot<String, Map<String, dynamic>> snapshot,
+  ) {
+    return RepoDetailsDTO.fromJson(snapshot.value);
+  }
 
   /// Converts an [RepoDetailsDTO] to an [RepoDetails] domain
   RepoDetails toDomain() => RepoDetails(

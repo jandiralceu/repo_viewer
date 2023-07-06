@@ -3,7 +3,7 @@ import 'package:collection/collection.dart';
 import 'package:repo_viewer/core/core.dart';
 import 'package:sembast/sembast.dart';
 
-import '../../../../../core/core.dart';
+import '../../../../core/core.dart';
 
 class StarredReposLocalService {
   final AppLocalDatabase _sembastDatabase;

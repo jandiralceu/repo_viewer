@@ -2,7 +2,8 @@ import 'package:dartz/dartz.dart';
 
 import '../../../../../core/core.dart';
 import '../../../../core/core.dart';
-import '../datasource/datasource.dart';
+import '../local/local.dart';
+import '../remote/remote.dart';
 
 /// Starred repos repository
 class StarredReposRepository {

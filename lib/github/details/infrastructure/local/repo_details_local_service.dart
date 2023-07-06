@@ -1,4 +1,5 @@
 import 'package:sembast/sembast.dart';
+import 'package:sembast/timestamp.dart';
 
 import '../../../../core/core.dart';
 import '../dtos/dtos.dart';
@@ -12,15 +13,37 @@ class RepoDetailsLocalService {
   RepoDetailsLocalService(this._sembastDatabase);
 
   Future<void> upsertRepoDetails(RepoDetailsDTO repoDetails) async {
+    final keys = await _store.findKeys(
+      _sembastDatabase.instance,
+      finder: Finder(
+        sortOrders: [
+          SortOrder(RepoDetailsDTO.lastUsedFieldName, false),
+        ],
+      ),
+    );
+
+    if (keys.length == cacheSize) {
+      final keysToRemove = keys.sublist(cacheSize);
+
+      for (final key in keysToRemove) {
+        await _store.record(key).delete(_sembastDatabase.instance);
+      }
+    }
+
     await _store
         .record(repoDetails.repositoryFullname)
         .put(_sembastDatabase.instance, repoDetails.toJson());
   }
 
   Future<RepoDetailsDTO?> getRepoDetails(String repositoryFullname) async {
-    final snapshot = await _store
-        .record(repositoryFullname)
-        .getSnapshot(_sembastDatabase.instance);
+    final record = _store.record(repositoryFullname);
+
+    await record.update(
+      _sembastDatabase.instance,
+      {RepoDetailsDTO.lastUsedFieldName: Timestamp.now()},
+    );
+
+    final snapshot = await record.getSnapshot(_sembastDatabase.instance);
 
     if (snapshot == null) return null;
 

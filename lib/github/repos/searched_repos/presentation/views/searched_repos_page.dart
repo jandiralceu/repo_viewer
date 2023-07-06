@@ -4,7 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../../../auth/auth.dart';
 import '../../../../../core/presentation/presentation.dart';
-import '../../../../../search/presentation/views/views.dart';
+import '../../../../../search/search.dart';
 import '../../../../core/core.dart';
 
 @RoutePage()

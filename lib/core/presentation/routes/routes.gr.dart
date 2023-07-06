@@ -16,7 +16,7 @@ import 'package:repo_viewer/auth/presentation/views/sign_in/sign_in_page.dart'
     as _i2;
 import 'package:repo_viewer/github/repos/searched_repos/presentation/views/searched_repos_page.dart'
     as _i3;
-import 'package:repo_viewer/github/repos/starred_repos/presentation/views/starred_repos/starred_repos_page.dart'
+import 'package:repo_viewer/github/repos/starred_repos/presentation/views/starred_repos_page.dart'
     as _i4;
 import 'package:repo_viewer/splash/presentation/views/splash/splash_page.dart'
     as _i5;

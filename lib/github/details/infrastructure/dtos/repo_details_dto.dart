@@ -1,5 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:sembast/sembast.dart';
+import 'package:sembast/timestamp.dart';
 
 import '../../domain/domain.dart';
 
@@ -9,6 +10,8 @@ part 'repo_details_dto.g.dart';
 @freezed
 class RepoDetailsDTO with _$RepoDetailsDTO {
   const RepoDetailsDTO._();
+
+  static const lastUsedFieldName = 'lastUsed';
 
   const factory RepoDetailsDTO({
     @JsonKey(name: 'starred') required bool isStarred,
@@ -27,6 +30,15 @@ class RepoDetailsDTO with _$RepoDetailsDTO {
         repositoryFullname: _.repositoryFullname,
       );
 
+  ///
+  Map<String, dynamic> toSembast() {
+    final json = toJson();
+    json[lastUsedFieldName] = Timestamp.now();
+
+    return json;
+  }
+
+  ///
   factory RepoDetailsDTO.fromSembast(
     RecordSnapshot<String, Map<String, dynamic>> snapshot,
   ) {

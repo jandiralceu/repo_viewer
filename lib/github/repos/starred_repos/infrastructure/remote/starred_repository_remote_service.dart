@@ -1,5 +1,5 @@
-import '../../../../../core/core.dart';
 import '../../../../core/core.dart';
+import '../../../core/core.dart';
 
 class StarredReposRemoteService extends ReposRemoteService {
   StarredReposRemoteService({

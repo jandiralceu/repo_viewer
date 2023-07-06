@@ -6,7 +6,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:material_floating_search_bar_2/material_floating_search_bar_2.dart';
 
-import '../../../shared/shared.dart';
+import '../../shared/shared.dart';
 
 typedef NavCallback = void Function(String term);
 typedef SignOutCallback = void Function();

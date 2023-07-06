@@ -1,3 +1,4 @@
+import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 
 import '../../../../core/core.dart';
@@ -75,6 +76,37 @@ class RepoDetailsRemoteService {
         return true;
       } else if (response.statusCode == 404) {
         return false;
+      } else {
+        throw RestApiException(response.statusCode);
+      }
+    } on DioException catch (e) {
+      if (e.isNoConnectionError) {
+        return null;
+      } else if (e.response != null) {
+        throw RestApiException(e.response?.statusCode);
+      } else {
+        rethrow;
+      }
+    }
+  }
+
+  // Star and unstar a repository
+  Future<Unit?> switchStarredStatus({
+    required String repoFullname,
+    required bool isCurrentlyStarred,
+  }) async {
+    final requestUri = Uri.https(
+      'api.github.com',
+      '/user/starred/$repoFullname',
+    );
+
+    try {
+      final response = await (isCurrentlyStarred
+          ? _dio.deleteUri(requestUri)
+          : _dio.putUri(requestUri));
+
+      if (response.statusCode == 204) {
+        return unit;
       } else {
         throw RestApiException(response.statusCode);
       }

@@ -2,15 +2,18 @@ import 'package:sembast/sembast.dart';
 import 'package:sembast/timestamp.dart';
 
 import '../../../../core/core.dart';
+import '../../../core/core.dart';
 import '../dtos/dtos.dart';
 
 class RepoDetailsLocalService {
   static const cacheSize = 50;
 
   final AppLocalDatabase _sembastDatabase;
+  final GithubHeadersCache _headersCache;
+
   final _store = stringMapStoreFactory.store('repoDetails');
 
-  RepoDetailsLocalService(this._sembastDatabase);
+  RepoDetailsLocalService(this._sembastDatabase, this._headersCache);
 
   Future<void> upsertRepoDetails(RepoDetailsDTO repoDetails) async {
     final keys = await _store.findKeys(
@@ -27,6 +30,9 @@ class RepoDetailsLocalService {
 
       for (final key in keysToRemove) {
         await _store.record(key).delete(_sembastDatabase.instance);
+        await _headersCache.deleteHeaders(
+          Uri.https('api.github.com', '/repos/$key/readme'),
+        );
       }
     }
 

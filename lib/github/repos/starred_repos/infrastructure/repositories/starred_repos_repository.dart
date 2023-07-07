@@ -29,18 +29,14 @@ class StarredReposRepository {
         await response.when(
           noConnection: () async {
             return Fresh.no(
-              await _localService
-                  .getPage(page)
-                  .then((repos) => repos.toDomain()),
+              await _localService.getPage(page).then((_) => _.toDomain()),
               isNextPageAvailable:
                   page < await _localService.getLocalPageCount(),
             );
           },
           notModified: (maxPage) async {
             return Fresh.yes(
-              await _localService
-                  .getPage(page)
-                  .then((repos) => repos.toDomain()),
+              await _localService.getPage(page).then((_) => _.toDomain()),
               isNextPageAvailable: page < maxPage,
             );
           },

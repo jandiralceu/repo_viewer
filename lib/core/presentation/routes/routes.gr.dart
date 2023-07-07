@@ -17,9 +17,9 @@ import 'package:repo_viewer/auth/presentation/views/sign_in/sign_in_page.dart'
 import 'package:repo_viewer/github/repos/searched_repos/presentation/views/searched_repos_page.dart'
     as _i3;
 import 'package:repo_viewer/github/repos/starred_repos/presentation/views/starred_repos_page.dart'
-    as _i4;
-import 'package:repo_viewer/splash/presentation/views/splash/splash_page.dart'
     as _i5;
+import 'package:repo_viewer/splash/presentation/views/splash/splash_page.dart'
+    as _i4;
 
 abstract class $AppRouter extends _i6.RootStackRouter {
   $AppRouter({super.navigatorKey});
@@ -54,16 +54,16 @@ abstract class $AppRouter extends _i6.RootStackRouter {
         ),
       );
     },
-    StarredReposRoute.name: (routeData) {
-      return _i6.AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: const _i4.StarredReposPage(),
-      );
-    },
     SplashRoute.name: (routeData) {
       return _i6.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i5.SplashPage(),
+        child: const _i4.SplashPage(),
+      );
+    },
+    StarredReposRoute.name: (routeData) {
+      return _i6.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const _i5.StarredReposPage(),
       );
     },
   };
@@ -166,21 +166,7 @@ class SearchedReposRouteArgs {
 }
 
 /// generated route for
-/// [_i4.StarredReposPage]
-class StarredReposRoute extends _i6.PageRouteInfo<void> {
-  const StarredReposRoute({List<_i6.PageRouteInfo>? children})
-      : super(
-          StarredReposRoute.name,
-          initialChildren: children,
-        );
-
-  static const String name = 'StarredReposRoute';
-
-  static const _i6.PageInfo<void> page = _i6.PageInfo<void>(name);
-}
-
-/// generated route for
-/// [_i5.SplashPage]
+/// [_i4.SplashPage]
 class SplashRoute extends _i6.PageRouteInfo<void> {
   const SplashRoute({List<_i6.PageRouteInfo>? children})
       : super(
@@ -189,6 +175,20 @@ class SplashRoute extends _i6.PageRouteInfo<void> {
         );
 
   static const String name = 'SplashRoute';
+
+  static const _i6.PageInfo<void> page = _i6.PageInfo<void>(name);
+}
+
+/// generated route for
+/// [_i5.StarredReposPage]
+class StarredReposRoute extends _i6.PageRouteInfo<void> {
+  const StarredReposRoute({List<_i6.PageRouteInfo>? children})
+      : super(
+          StarredReposRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'StarredReposRoute';
 
   static const _i6.PageInfo<void> page = _i6.PageInfo<void>(name);
 }

@@ -11,31 +11,25 @@
 import 'package:auto_route/auto_route.dart' as _i6;
 import 'package:flutter/material.dart' as _i7;
 import 'package:repo_viewer/auth/presentation/views/authorization/authorization_page.dart'
-    as _i1;
+    as _i3;
 import 'package:repo_viewer/auth/presentation/views/sign_in/sign_in_page.dart'
     as _i2;
 import 'package:repo_viewer/github/repos/searched_repos/presentation/views/searched_repos_page.dart'
-    as _i3;
-import 'package:repo_viewer/github/repos/starred_repos/presentation/views/starred_repos_page.dart'
     as _i5;
-import 'package:repo_viewer/splash/presentation/views/splash/splash_page.dart'
+import 'package:repo_viewer/github/repos/starred_repos/presentation/views/starred_repos_page.dart'
     as _i4;
+import 'package:repo_viewer/splash/presentation/views/splash/splash_page.dart'
+    as _i1;
 
 abstract class $AppRouter extends _i6.RootStackRouter {
   $AppRouter({super.navigatorKey});
 
   @override
   final Map<String, _i6.PageFactory> pagesMap = {
-    AuthorizationRoute.name: (routeData) {
-      final args = routeData.argsAs<AuthorizationRouteArgs>();
+    SplashRoute.name: (routeData) {
       return _i6.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i1.AuthorizationPage(
-          key: args.key,
-          authorizationUrl: args.authorizationUrl,
-          onAuthorizationCodeRedirectAttempt:
-              args.onAuthorizationCodeRedirectAttempt,
-        ),
+        child: const _i1.SplashPage(),
       );
     },
     SignInRoute.name: (routeData) {
@@ -44,33 +38,67 @@ abstract class $AppRouter extends _i6.RootStackRouter {
         child: const _i2.SignInPage(),
       );
     },
-    SearchedReposRoute.name: (routeData) {
-      final args = routeData.argsAs<SearchedReposRouteArgs>();
+    AuthorizationRoute.name: (routeData) {
+      final args = routeData.argsAs<AuthorizationRouteArgs>();
       return _i6.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i3.SearchedReposPage(
+        child: _i3.AuthorizationPage(
           key: args.key,
-          searchTerm: args.searchTerm,
+          authorizationUrl: args.authorizationUrl,
+          onAuthorizationCodeRedirectAttempt:
+              args.onAuthorizationCodeRedirectAttempt,
         ),
-      );
-    },
-    SplashRoute.name: (routeData) {
-      return _i6.AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: const _i4.SplashPage(),
       );
     },
     StarredReposRoute.name: (routeData) {
       return _i6.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i5.StarredReposPage(),
+        child: const _i4.StarredReposPage(),
+      );
+    },
+    SearchedReposRoute.name: (routeData) {
+      final args = routeData.argsAs<SearchedReposRouteArgs>();
+      return _i6.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: _i5.SearchedReposPage(
+          key: args.key,
+          searchTerm: args.searchTerm,
+        ),
       );
     },
   };
 }
 
 /// generated route for
-/// [_i1.AuthorizationPage]
+/// [_i1.SplashPage]
+class SplashRoute extends _i6.PageRouteInfo<void> {
+  const SplashRoute({List<_i6.PageRouteInfo>? children})
+      : super(
+          SplashRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'SplashRoute';
+
+  static const _i6.PageInfo<void> page = _i6.PageInfo<void>(name);
+}
+
+/// generated route for
+/// [_i2.SignInPage]
+class SignInRoute extends _i6.PageRouteInfo<void> {
+  const SignInRoute({List<_i6.PageRouteInfo>? children})
+      : super(
+          SignInRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'SignInRoute';
+
+  static const _i6.PageInfo<void> page = _i6.PageInfo<void>(name);
+}
+
+/// generated route for
+/// [_i3.AuthorizationPage]
 class AuthorizationRoute extends _i6.PageRouteInfo<AuthorizationRouteArgs> {
   AuthorizationRoute({
     _i7.Key? key,
@@ -114,21 +142,21 @@ class AuthorizationRouteArgs {
 }
 
 /// generated route for
-/// [_i2.SignInPage]
-class SignInRoute extends _i6.PageRouteInfo<void> {
-  const SignInRoute({List<_i6.PageRouteInfo>? children})
+/// [_i4.StarredReposPage]
+class StarredReposRoute extends _i6.PageRouteInfo<void> {
+  const StarredReposRoute({List<_i6.PageRouteInfo>? children})
       : super(
-          SignInRoute.name,
+          StarredReposRoute.name,
           initialChildren: children,
         );
 
-  static const String name = 'SignInRoute';
+  static const String name = 'StarredReposRoute';
 
   static const _i6.PageInfo<void> page = _i6.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i3.SearchedReposPage]
+/// [_i5.SearchedReposPage]
 class SearchedReposRoute extends _i6.PageRouteInfo<SearchedReposRouteArgs> {
   SearchedReposRoute({
     _i7.Key? key,
@@ -163,32 +191,4 @@ class SearchedReposRouteArgs {
   String toString() {
     return 'SearchedReposRouteArgs{key: $key, searchTerm: $searchTerm}';
   }
-}
-
-/// generated route for
-/// [_i4.SplashPage]
-class SplashRoute extends _i6.PageRouteInfo<void> {
-  const SplashRoute({List<_i6.PageRouteInfo>? children})
-      : super(
-          SplashRoute.name,
-          initialChildren: children,
-        );
-
-  static const String name = 'SplashRoute';
-
-  static const _i6.PageInfo<void> page = _i6.PageInfo<void>(name);
-}
-
-/// generated route for
-/// [_i5.StarredReposPage]
-class StarredReposRoute extends _i6.PageRouteInfo<void> {
-  const StarredReposRoute({List<_i6.PageRouteInfo>? children})
-      : super(
-          StarredReposRoute.name,
-          initialChildren: children,
-        );
-
-  static const String name = 'StarredReposRoute';
-
-  static const _i6.PageInfo<void> page = _i6.PageInfo<void>(name);
 }

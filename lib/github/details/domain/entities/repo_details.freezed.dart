@@ -18,7 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$RepoDetails {
   bool get isStarred => throw _privateConstructorUsedError;
   String get htmlContent => throw _privateConstructorUsedError;
-  String get repositoryFullname => throw _privateConstructorUsedError;
+  String get repoFullname => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $RepoDetailsCopyWith<RepoDetails> get copyWith =>
@@ -31,7 +31,7 @@ abstract class $RepoDetailsCopyWith<$Res> {
           RepoDetails value, $Res Function(RepoDetails) then) =
       _$RepoDetailsCopyWithImpl<$Res, RepoDetails>;
   @useResult
-  $Res call({bool isStarred, String htmlContent, String repositoryFullname});
+  $Res call({bool isStarred, String htmlContent, String repoFullname});
 }
 
 /// @nodoc
@@ -49,7 +49,7 @@ class _$RepoDetailsCopyWithImpl<$Res, $Val extends RepoDetails>
   $Res call({
     Object? isStarred = null,
     Object? htmlContent = null,
-    Object? repositoryFullname = null,
+    Object? repoFullname = null,
   }) {
     return _then(_value.copyWith(
       isStarred: null == isStarred
@@ -60,9 +60,9 @@ class _$RepoDetailsCopyWithImpl<$Res, $Val extends RepoDetails>
           ? _value.htmlContent
           : htmlContent // ignore: cast_nullable_to_non_nullable
               as String,
-      repositoryFullname: null == repositoryFullname
-          ? _value.repositoryFullname
-          : repositoryFullname // ignore: cast_nullable_to_non_nullable
+      repoFullname: null == repoFullname
+          ? _value.repoFullname
+          : repoFullname // ignore: cast_nullable_to_non_nullable
               as String,
     ) as $Val);
   }
@@ -76,7 +76,7 @@ abstract class _$$_RepoDetailsCopyWith<$Res>
       __$$_RepoDetailsCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({bool isStarred, String htmlContent, String repositoryFullname});
+  $Res call({bool isStarred, String htmlContent, String repoFullname});
 }
 
 /// @nodoc
@@ -92,7 +92,7 @@ class __$$_RepoDetailsCopyWithImpl<$Res>
   $Res call({
     Object? isStarred = null,
     Object? htmlContent = null,
-    Object? repositoryFullname = null,
+    Object? repoFullname = null,
   }) {
     return _then(_$_RepoDetails(
       isStarred: null == isStarred
@@ -103,9 +103,9 @@ class __$$_RepoDetailsCopyWithImpl<$Res>
           ? _value.htmlContent
           : htmlContent // ignore: cast_nullable_to_non_nullable
               as String,
-      repositoryFullname: null == repositoryFullname
-          ? _value.repositoryFullname
-          : repositoryFullname // ignore: cast_nullable_to_non_nullable
+      repoFullname: null == repoFullname
+          ? _value.repoFullname
+          : repoFullname // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -117,7 +117,7 @@ class _$_RepoDetails extends _RepoDetails {
   const _$_RepoDetails(
       {required this.isStarred,
       required this.htmlContent,
-      required this.repositoryFullname})
+      required this.repoFullname})
       : super._();
 
   @override
@@ -125,11 +125,11 @@ class _$_RepoDetails extends _RepoDetails {
   @override
   final String htmlContent;
   @override
-  final String repositoryFullname;
+  final String repoFullname;
 
   @override
   String toString() {
-    return 'RepoDetails(isStarred: $isStarred, htmlContent: $htmlContent, repositoryFullname: $repositoryFullname)';
+    return 'RepoDetails(isStarred: $isStarred, htmlContent: $htmlContent, repoFullname: $repoFullname)';
   }
 
   @override
@@ -141,13 +141,13 @@ class _$_RepoDetails extends _RepoDetails {
                 other.isStarred == isStarred) &&
             (identical(other.htmlContent, htmlContent) ||
                 other.htmlContent == htmlContent) &&
-            (identical(other.repositoryFullname, repositoryFullname) ||
-                other.repositoryFullname == repositoryFullname));
+            (identical(other.repoFullname, repoFullname) ||
+                other.repoFullname == repoFullname));
   }
 
   @override
   int get hashCode =>
-      Object.hash(runtimeType, isStarred, htmlContent, repositoryFullname);
+      Object.hash(runtimeType, isStarred, htmlContent, repoFullname);
 
   @JsonKey(ignore: true)
   @override
@@ -160,7 +160,7 @@ abstract class _RepoDetails extends RepoDetails {
   const factory _RepoDetails(
       {required final bool isStarred,
       required final String htmlContent,
-      required final String repositoryFullname}) = _$_RepoDetails;
+      required final String repoFullname}) = _$_RepoDetails;
   const _RepoDetails._() : super._();
 
   @override
@@ -168,7 +168,7 @@ abstract class _RepoDetails extends RepoDetails {
   @override
   String get htmlContent;
   @override
-  String get repositoryFullname;
+  String get repoFullname;
   @override
   @JsonKey(ignore: true)
   _$$_RepoDetailsCopyWith<_$_RepoDetails> get copyWith =>

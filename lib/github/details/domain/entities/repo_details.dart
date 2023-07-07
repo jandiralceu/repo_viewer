@@ -9,6 +9,6 @@ class RepoDetails with _$RepoDetails {
   const factory RepoDetails({
     required bool isStarred,
     required String htmlContent,
-    required String repositoryFullname,
+    required String repoFullname,
   }) = _RepoDetails;
 }

@@ -16,7 +16,7 @@ class RepoDetailsDTO with _$RepoDetailsDTO {
   const factory RepoDetailsDTO({
     @JsonKey(name: 'starred') required bool isStarred,
     @JsonKey(name: 'html') required String htmlContent,
-    @JsonKey(name: 'fullName') required String repositoryFullname,
+    @JsonKey(name: 'fullName') required String repoFullname,
   }) = _RepoDetailsDTO;
 
   /// Creates an [RepoDetailsDTO] instance from a JSON
@@ -27,7 +27,7 @@ class RepoDetailsDTO with _$RepoDetailsDTO {
   factory RepoDetailsDTO.fromDomain(RepoDetails _) => RepoDetailsDTO(
         isStarred: _.isStarred,
         htmlContent: _.htmlContent,
-        repositoryFullname: _.repositoryFullname,
+        repoFullname: _.repoFullname,
       );
 
   ///
@@ -49,6 +49,6 @@ class RepoDetailsDTO with _$RepoDetailsDTO {
   RepoDetails toDomain() => RepoDetails(
         isStarred: isStarred,
         htmlContent: htmlContent,
-        repositoryFullname: repositoryFullname,
+        repoFullname: repoFullname,
       );
 }

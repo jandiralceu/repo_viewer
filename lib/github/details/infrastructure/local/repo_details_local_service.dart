@@ -37,12 +37,12 @@ class RepoDetailsLocalService {
     }
 
     await _store
-        .record(repoDetails.repositoryFullname)
+        .record(repoDetails.repoFullname)
         .put(_sembastDatabase.instance, repoDetails.toJson());
   }
 
-  Future<RepoDetailsDTO?> getRepoDetails(String repositoryFullname) async {
-    final record = _store.record(repositoryFullname);
+  Future<RepoDetailsDTO?> getRepoDetails(String repoFullname) async {
+    final record = _store.record(repoFullname);
 
     await record.update(
       _sembastDatabase.instance,

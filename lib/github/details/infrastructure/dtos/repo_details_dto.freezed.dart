@@ -25,7 +25,7 @@ mixin _$RepoDetailsDTO {
   @JsonKey(name: 'html')
   String get htmlContent => throw _privateConstructorUsedError;
   @JsonKey(name: 'fullName')
-  String get repositoryFullname => throw _privateConstructorUsedError;
+  String get repoFullname => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -42,7 +42,7 @@ abstract class $RepoDetailsDTOCopyWith<$Res> {
   $Res call(
       {@JsonKey(name: 'starred') bool isStarred,
       @JsonKey(name: 'html') String htmlContent,
-      @JsonKey(name: 'fullName') String repositoryFullname});
+      @JsonKey(name: 'fullName') String repoFullname});
 }
 
 /// @nodoc
@@ -60,7 +60,7 @@ class _$RepoDetailsDTOCopyWithImpl<$Res, $Val extends RepoDetailsDTO>
   $Res call({
     Object? isStarred = null,
     Object? htmlContent = null,
-    Object? repositoryFullname = null,
+    Object? repoFullname = null,
   }) {
     return _then(_value.copyWith(
       isStarred: null == isStarred
@@ -71,9 +71,9 @@ class _$RepoDetailsDTOCopyWithImpl<$Res, $Val extends RepoDetailsDTO>
           ? _value.htmlContent
           : htmlContent // ignore: cast_nullable_to_non_nullable
               as String,
-      repositoryFullname: null == repositoryFullname
-          ? _value.repositoryFullname
-          : repositoryFullname // ignore: cast_nullable_to_non_nullable
+      repoFullname: null == repoFullname
+          ? _value.repoFullname
+          : repoFullname // ignore: cast_nullable_to_non_nullable
               as String,
     ) as $Val);
   }
@@ -90,7 +90,7 @@ abstract class _$$_RepoDetailsDTOCopyWith<$Res>
   $Res call(
       {@JsonKey(name: 'starred') bool isStarred,
       @JsonKey(name: 'html') String htmlContent,
-      @JsonKey(name: 'fullName') String repositoryFullname});
+      @JsonKey(name: 'fullName') String repoFullname});
 }
 
 /// @nodoc
@@ -106,7 +106,7 @@ class __$$_RepoDetailsDTOCopyWithImpl<$Res>
   $Res call({
     Object? isStarred = null,
     Object? htmlContent = null,
-    Object? repositoryFullname = null,
+    Object? repoFullname = null,
   }) {
     return _then(_$_RepoDetailsDTO(
       isStarred: null == isStarred
@@ -117,9 +117,9 @@ class __$$_RepoDetailsDTOCopyWithImpl<$Res>
           ? _value.htmlContent
           : htmlContent // ignore: cast_nullable_to_non_nullable
               as String,
-      repositoryFullname: null == repositoryFullname
-          ? _value.repositoryFullname
-          : repositoryFullname // ignore: cast_nullable_to_non_nullable
+      repoFullname: null == repoFullname
+          ? _value.repoFullname
+          : repoFullname // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -131,7 +131,7 @@ class _$_RepoDetailsDTO extends _RepoDetailsDTO {
   const _$_RepoDetailsDTO(
       {@JsonKey(name: 'starred') required this.isStarred,
       @JsonKey(name: 'html') required this.htmlContent,
-      @JsonKey(name: 'fullName') required this.repositoryFullname})
+      @JsonKey(name: 'fullName') required this.repoFullname})
       : super._();
 
   factory _$_RepoDetailsDTO.fromJson(Map<String, dynamic> json) =>
@@ -145,11 +145,11 @@ class _$_RepoDetailsDTO extends _RepoDetailsDTO {
   final String htmlContent;
   @override
   @JsonKey(name: 'fullName')
-  final String repositoryFullname;
+  final String repoFullname;
 
   @override
   String toString() {
-    return 'RepoDetailsDTO(isStarred: $isStarred, htmlContent: $htmlContent, repositoryFullname: $repositoryFullname)';
+    return 'RepoDetailsDTO(isStarred: $isStarred, htmlContent: $htmlContent, repoFullname: $repoFullname)';
   }
 
   @override
@@ -161,14 +161,14 @@ class _$_RepoDetailsDTO extends _RepoDetailsDTO {
                 other.isStarred == isStarred) &&
             (identical(other.htmlContent, htmlContent) ||
                 other.htmlContent == htmlContent) &&
-            (identical(other.repositoryFullname, repositoryFullname) ||
-                other.repositoryFullname == repositoryFullname));
+            (identical(other.repoFullname, repoFullname) ||
+                other.repoFullname == repoFullname));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode =>
-      Object.hash(runtimeType, isStarred, htmlContent, repositoryFullname);
+      Object.hash(runtimeType, isStarred, htmlContent, repoFullname);
 
   @JsonKey(ignore: true)
   @override
@@ -186,12 +186,10 @@ class _$_RepoDetailsDTO extends _RepoDetailsDTO {
 
 abstract class _RepoDetailsDTO extends RepoDetailsDTO {
   const factory _RepoDetailsDTO(
-      {@JsonKey(name: 'starred')
-          required final bool isStarred,
-      @JsonKey(name: 'html')
-          required final String htmlContent,
-      @JsonKey(name: 'fullName')
-          required final String repositoryFullname}) = _$_RepoDetailsDTO;
+          {@JsonKey(name: 'starred') required final bool isStarred,
+          @JsonKey(name: 'html') required final String htmlContent,
+          @JsonKey(name: 'fullName') required final String repoFullname}) =
+      _$_RepoDetailsDTO;
   const _RepoDetailsDTO._() : super._();
 
   factory _RepoDetailsDTO.fromJson(Map<String, dynamic> json) =
@@ -205,7 +203,7 @@ abstract class _RepoDetailsDTO extends RepoDetailsDTO {
   String get htmlContent;
   @override
   @JsonKey(name: 'fullName')
-  String get repositoryFullname;
+  String get repoFullname;
   @override
   @JsonKey(ignore: true)
   _$$_RepoDetailsDTOCopyWith<_$_RepoDetailsDTO> get copyWith =>

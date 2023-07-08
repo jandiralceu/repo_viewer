@@ -46,4 +46,33 @@ class RepoDetailsNotifier extends StateNotifier<RepoDetailsState> {
       (result) => RepoDetailsState.success(result),
     );
   }
+
+  Future<void> switchStarredStatus() async {
+    state.maybeMap(
+      orElse: () {},
+      success: (data) async {
+        final currentState = data.copyWith();
+        final currentDetails = data.repoDetails.entity;
+
+        if (currentDetails != null) {
+          state = data.copyWith.repoDetails(
+            entity: currentDetails.copyWith(
+              isStarred: !currentDetails.isStarred,
+            ),
+          );
+
+          final response = await _repository.switchStarredStatus(
+            currentDetails,
+          );
+
+          response.fold(
+            (_) => state = currentState,
+            (result) => state = result == null
+                ? currentState
+                : state.copyWith(hasStarredStatusChanged: true),
+          );
+        }
+      },
+    );
+  }
 }

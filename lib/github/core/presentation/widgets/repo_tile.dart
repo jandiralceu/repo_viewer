@@ -1,45 +1,46 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:repo_viewer/core/presentation/presentation.dart';
+import 'package:repo_viewer/github/core/core.dart';
 
 class RepoTile extends StatelessWidget {
-  final String title;
-  final String description;
-  final String avatarUrl;
-  final int starts;
+  final Repository repo;
 
   const RepoTile({
     super.key,
-    required this.title,
-    required this.description,
-    required this.avatarUrl,
-    required this.starts,
+    required this.repo,
   });
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      title: Text(title),
+      title: Text(repo.name),
       subtitle: Text(
-        description,
+        repo.description,
         maxLines: 1,
         overflow: TextOverflow.ellipsis,
       ),
-      leading: CircleAvatar(
-        backgroundImage: CachedNetworkImageProvider(avatarUrl),
-        backgroundColor: Colors.transparent,
+      leading: Hero(
+        tag: repo.fullName,
+        child: CircleAvatar(
+          backgroundImage:
+              CachedNetworkImageProvider(repo.owner.avatarUrlThumb),
+          backgroundColor: Colors.transparent,
+        ),
       ),
       trailing: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           const Icon(Icons.star_border),
           Text(
-            starts.toString(),
+            repo.stars.toString(),
             style: Theme.of(context).textTheme.bodySmall,
           ),
         ],
       ),
       onTap: () {
-        // TODO: Go to details page
+        AutoRouter.of(context).push(RepoDetailsRoute(repo: repo));
       },
     );
   }

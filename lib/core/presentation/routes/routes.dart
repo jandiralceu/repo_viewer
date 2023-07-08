@@ -32,5 +32,9 @@ class AppRouter extends $AppRouter {
           path: '/sign-in-authorization',
           page: AuthorizationRoute.page,
         ),
+        AutoRoute(
+          path: '/repo-details',
+          page: RepoDetailsRoute.page,
+        ),
       ];
 }

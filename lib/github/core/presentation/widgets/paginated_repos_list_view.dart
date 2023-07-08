@@ -114,26 +114,19 @@ class _PaginatedListView extends StatelessWidget {
           initial: (_) => const SizedBox.shrink(),
           loading: (_) {
             return index < _.repos.entity.length
-                ? _buildRepoTile(_.repos.entity[index])
+                ? RepoTile(repo: _.repos.entity[index])
                 : const LoadingRepoTile();
           },
           data: (_) {
-            return _buildRepoTile(_.repos.entity[index]);
+            return RepoTile(repo: _.repos.entity[index]);
           },
           failure: (_) {
             return index < _.repos.entity.length
-                ? _buildRepoTile(_.repos.entity[index])
+                ? RepoTile(repo: _.repos.entity[index])
                 : FailureRepoTile(failure: _.failure);
           },
         );
       },
     );
   }
-
-  Widget _buildRepoTile(Repository repo) => RepoTile(
-        title: repo.name,
-        description: repo.description,
-        avatarUrl: repo.owner.avatarUrlThumb,
-        starts: repo.stars,
-      );
 }

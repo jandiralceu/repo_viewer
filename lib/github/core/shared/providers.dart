@@ -1,6 +1,7 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../core/core.dart';
+import '../../details/details.dart';
 import '../../repos/repos.dart';
 import '../infrastructure/infrastructure.dart';
 
@@ -47,4 +48,30 @@ final searchedReposRepositoryProvider = Provider(
 final searchedReposNotifierProvider = StateNotifierProvider.autoDispose<
     SearchedReposNotifier, PaginatedReposState>(
   (ref) => SearchedReposNotifier(ref.watch(searchedReposRepositoryProvider)),
+);
+
+final repoDetailsLocalServiceProvider = Provider(
+  (ref) => RepoDetailsLocalService(
+    ref.watch(sembastProvider),
+    ref.watch(githubHeaderCacheProvider),
+  ),
+);
+
+final repoDetailsRemoteServiceProvider = Provider(
+  (ref) => RepoDetailsRemoteService(
+    ref.watch(dioProvider),
+    ref.watch(githubHeaderCacheProvider),
+  ),
+);
+
+final repoDetailsRepositoryProvider = Provider(
+  (ref) => RepoDetailsRepository(
+    ref.watch(repoDetailsLocalServiceProvider),
+    ref.watch(repoDetailsRemoteServiceProvider),
+  ),
+);
+
+final repoDetailsNotifierProvider =
+    StateNotifierProvider<RepoDetailsNotifier, RepoDetailsState>(
+  (ref) => RepoDetailsNotifier(ref.watch(repoDetailsRepositoryProvider)),
 );

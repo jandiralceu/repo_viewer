@@ -51,7 +51,7 @@ class RepoDetailsNotifier extends StateNotifier<RepoDetailsState> {
     state.maybeMap(
       orElse: () {},
       success: (data) async {
-        final currentState = data.copyWith();
+        final currentStateCopy = data.copyWith();
         final currentDetails = data.repoDetails.entity;
 
         if (currentDetails != null) {
@@ -66,9 +66,9 @@ class RepoDetailsNotifier extends StateNotifier<RepoDetailsState> {
           );
 
           response.fold(
-            (_) => state = currentState,
+            (_) => state = currentStateCopy,
             (result) => state = result == null
-                ? currentState
+                ? currentStateCopy
                 : state.copyWith(hasStarredStatusChanged: true),
           );
         }

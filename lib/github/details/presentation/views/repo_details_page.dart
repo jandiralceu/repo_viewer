@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 import '../../../../core/core.dart';
 import '../../../core/core.dart';
@@ -97,17 +98,37 @@ class _RepoDetailsPageState extends ConsumerState<RepoDetailsPage> {
                   icon: Icon(_getStarredOrUnStarredIcon(_.repoDetails)),
                   onPressed: !_.repoDetails.isFresh
                       ? null
-                      : () {
-                          ref
-                              .read(repoDetailsNotifierProvider.notifier)
-                              .switchStarredStatus();
-                        },
+                      : () => ref
+                          .read(repoDetailsNotifierProvider.notifier)
+                          .switchStarredStatus(),
                 );
               },
             ),
           ],
         ),
-        // body: Container(),
+        body: state.map(
+          initial: (value) => Container(),
+          loading: (_) => const Center(
+            child: CircularProgressIndicator(),
+          ),
+          success: (_) {
+            if (_.repoDetails.entity == null) {
+              return const NoResultPage(
+                message:
+                    'These are approximately all the details we could find about this repo right now.',
+              );
+            }
+
+            return WebViewWidget(
+              controller: WebViewController()
+                ..setJavaScriptMode(JavaScriptMode.unrestricted)
+                ..loadHtmlString(_.repoDetails.entity!.htmlContent),
+            );
+          },
+          failure: (_) => Center(
+            child: Text(_.failure.toString()),
+          ),
+        ),
       ),
     );
   }

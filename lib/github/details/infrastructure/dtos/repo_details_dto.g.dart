@@ -9,13 +9,13 @@ part of 'repo_details_dto.dart';
 _$_RepoDetailsDTO _$$_RepoDetailsDTOFromJson(Map<String, dynamic> json) =>
     _$_RepoDetailsDTO(
       isStarred: json['starred'] as bool,
-      htmlContent: json['html'] as String,
+      htmlContent: json['download_url'] as String,
       repoFullname: json['fullName'] as String,
     );
 
 Map<String, dynamic> _$$_RepoDetailsDTOToJson(_$_RepoDetailsDTO instance) =>
     <String, dynamic>{
       'starred': instance.isStarred,
-      'html': instance.htmlContent,
+      'download_url': instance.htmlContent,
       'fullName': instance.repoFullname,
     };

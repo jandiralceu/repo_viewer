@@ -15,7 +15,7 @@ class RepoDetailsDTO with _$RepoDetailsDTO {
 
   const factory RepoDetailsDTO({
     @JsonKey(name: 'starred') required bool isStarred,
-    @JsonKey(name: 'html') required String htmlContent,
+    @JsonKey(name: 'download_url') required String htmlContent,
     @JsonKey(name: 'fullName') required String repoFullname,
   }) = _RepoDetailsDTO;
 

@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
+import 'package:markdown/markdown.dart' hide Text;
 
 import '../../../../core/core.dart';
 import '../../../core/core.dart';
@@ -27,19 +28,23 @@ class RepoDetailsRemoteService {
           headers: {
             'If-None-Match': previousHeaders?.etag ?? '',
           },
-          responseType: ResponseType.plain,
         ),
       );
 
       if (response.statusCode == 304) {
         return const RemoteResponse.notModified(maxPage: 0);
       } else if (response.statusCode == 200) {
+        final newDioInstance = Dio();
+        final markdownContentResponse =
+            await newDioInstance.get(response.data['download_url'] as String);
+
         final headers = RemoteHeaders.parse(response);
         await _headersCache.saveHeaders(requestUri, headers);
 
-        final htmlContent = response.data as String;
-
-        return RemoteResponse.withNewData(htmlContent, maxPage: 0);
+        return RemoteResponse.withNewData(
+          markdownToHtml(markdownContentResponse.data as String),
+          maxPage: 0,
+        );
       } else {
         throw RestApiException(response.statusCode);
       }

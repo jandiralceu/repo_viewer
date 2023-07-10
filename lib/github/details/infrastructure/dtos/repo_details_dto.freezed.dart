@@ -22,7 +22,7 @@ RepoDetailsDTO _$RepoDetailsDTOFromJson(Map<String, dynamic> json) {
 mixin _$RepoDetailsDTO {
   @JsonKey(name: 'starred')
   bool get isStarred => throw _privateConstructorUsedError;
-  @JsonKey(name: 'html')
+  @JsonKey(name: 'download_url')
   String get htmlContent => throw _privateConstructorUsedError;
   @JsonKey(name: 'fullName')
   String get repoFullname => throw _privateConstructorUsedError;
@@ -41,7 +41,7 @@ abstract class $RepoDetailsDTOCopyWith<$Res> {
   @useResult
   $Res call(
       {@JsonKey(name: 'starred') bool isStarred,
-      @JsonKey(name: 'html') String htmlContent,
+      @JsonKey(name: 'download_url') String htmlContent,
       @JsonKey(name: 'fullName') String repoFullname});
 }
 
@@ -89,7 +89,7 @@ abstract class _$$_RepoDetailsDTOCopyWith<$Res>
   @useResult
   $Res call(
       {@JsonKey(name: 'starred') bool isStarred,
-      @JsonKey(name: 'html') String htmlContent,
+      @JsonKey(name: 'download_url') String htmlContent,
       @JsonKey(name: 'fullName') String repoFullname});
 }
 
@@ -130,7 +130,7 @@ class __$$_RepoDetailsDTOCopyWithImpl<$Res>
 class _$_RepoDetailsDTO extends _RepoDetailsDTO {
   const _$_RepoDetailsDTO(
       {@JsonKey(name: 'starred') required this.isStarred,
-      @JsonKey(name: 'html') required this.htmlContent,
+      @JsonKey(name: 'download_url') required this.htmlContent,
       @JsonKey(name: 'fullName') required this.repoFullname})
       : super._();
 
@@ -141,7 +141,7 @@ class _$_RepoDetailsDTO extends _RepoDetailsDTO {
   @JsonKey(name: 'starred')
   final bool isStarred;
   @override
-  @JsonKey(name: 'html')
+  @JsonKey(name: 'download_url')
   final String htmlContent;
   @override
   @JsonKey(name: 'fullName')
@@ -187,7 +187,7 @@ class _$_RepoDetailsDTO extends _RepoDetailsDTO {
 abstract class _RepoDetailsDTO extends RepoDetailsDTO {
   const factory _RepoDetailsDTO(
           {@JsonKey(name: 'starred') required final bool isStarred,
-          @JsonKey(name: 'html') required final String htmlContent,
+          @JsonKey(name: 'download_url') required final String htmlContent,
           @JsonKey(name: 'fullName') required final String repoFullname}) =
       _$_RepoDetailsDTO;
   const _RepoDetailsDTO._() : super._();
@@ -199,7 +199,7 @@ abstract class _RepoDetailsDTO extends RepoDetailsDTO {
   @JsonKey(name: 'starred')
   bool get isStarred;
   @override
-  @JsonKey(name: 'html')
+  @JsonKey(name: 'download_url')
   String get htmlContent;
   @override
   @JsonKey(name: 'fullName')

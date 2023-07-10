@@ -4,12 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:url_launcher/url_launcher.dart' as url_launcher;
 import 'package:webview_flutter/webview_flutter.dart';
 
 import '../../../../core/core.dart';
 import '../../../core/core.dart';
 import '../../application/application.dart';
 import '../../domain/domain.dart';
+import 'css.dart';
 
 @RoutePage()
 class RepoDetailsPage extends ConsumerStatefulWidget {
@@ -122,7 +124,32 @@ class _RepoDetailsPageState extends ConsumerState<RepoDetailsPage> {
             return WebViewWidget(
               controller: WebViewController()
                 ..setJavaScriptMode(JavaScriptMode.unrestricted)
-                ..loadHtmlString(_.repoDetails.entity!.htmlContent),
+                ..loadHtmlString('''
+                    <!DOCTYPE html>
+                    <html lang="en">
+                    <head>
+                        <meta charset="UTF-8">
+                        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                        <title></title>
+                        $repoDetailsCss
+                    </head>
+                    <body>
+                      ${_.repoDetails.entity!.htmlContent}
+                    </body>
+                    </html>
+                  ''')
+                ..setNavigationDelegate(
+                  NavigationDelegate(
+                    onNavigationRequest: (request) {
+                      if (request.url.startsWith('http')) {
+                        url_launcher.launchUrl(Uri.parse(request.url));
+                        return NavigationDecision.prevent;
+                      }
+
+                      return NavigationDecision.navigate;
+                    },
+                  ),
+                ),
             );
           },
           failure: (_) => Center(

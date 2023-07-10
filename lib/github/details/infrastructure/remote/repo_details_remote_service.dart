@@ -34,9 +34,9 @@ class RepoDetailsRemoteService {
       if (response.statusCode == 304) {
         return const RemoteResponse.notModified(maxPage: 0);
       } else if (response.statusCode == 200) {
-        final newDioInstance = Dio();
+        final httpClient = Dio();
         final markdownContentResponse =
-            await newDioInstance.get(response.data['download_url'] as String);
+            await httpClient.get(response.data['download_url'] as String);
 
         final headers = RemoteHeaders.parse(response);
         await _headersCache.saveHeaders(requestUri, headers);

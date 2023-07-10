@@ -11,7 +11,8 @@ import '../../../../core/core.dart';
 import '../../../core/core.dart';
 import '../../application/application.dart';
 import '../../domain/domain.dart';
-import 'css.dart';
+
+part 'css.dart';
 
 @RoutePage()
 class RepoDetailsPage extends ConsumerStatefulWidget {

@@ -6,7 +6,7 @@ import 'package:repo_viewer/github/github.dart';
 import '../../../../core/core.dart';
 import '../../core.dart';
 
-class PaginatedReposListView extends StatefulWidget {
+class PaginatedReposListView extends ConsumerStatefulWidget {
   /// Paginated repos notifier provider
   final AutoDisposeStateNotifierProvider<PaginatedReposNotifier,
       PaginatedReposState> paginatedReposNotifierProvider;
@@ -25,64 +25,59 @@ class PaginatedReposListView extends StatefulWidget {
   });
 
   @override
-  State<PaginatedReposListView> createState() => _PaginatedReposListViewState();
+  _PaginatedReposListViewState createState() => _PaginatedReposListViewState();
 }
 
-class _PaginatedReposListViewState extends State<PaginatedReposListView> {
+class _PaginatedReposListViewState
+    extends ConsumerState<PaginatedReposListView> {
   var _canLoadNextPage = false;
   var _hasActiveToast = false;
 
   @override
   Widget build(BuildContext context) {
-    return Consumer(
-      builder: (context, ref, child) {
-        final state = ref.watch(widget.paginatedReposNotifierProvider);
+    final state = ref.watch(widget.paginatedReposNotifierProvider);
 
-        ref.listen<PaginatedReposState>(
-          widget.paginatedReposNotifierProvider,
-          (__, newState) {
-            newState.map(
-              initial: (_) => _canLoadNextPage = true,
-              loading: (_) => _canLoadNextPage = false,
-              data: (_) {
-                if (!_.repos.isFresh && !_hasActiveToast) {
-                  _hasActiveToast = true;
+    ref.listen<PaginatedReposState>(
+      widget.paginatedReposNotifierProvider,
+      (__, newState) {
+        newState.map(
+          initial: (_) => _canLoadNextPage = true,
+          loading: (_) => _canLoadNextPage = false,
+          data: (_) {
+            if (!_.repos.isFresh && !_hasActiveToast) {
+              _hasActiveToast = true;
 
-                  showNoConnectionToast(
-                    context,
-                    message:
-                        "You're not online. Some information may be outdated!",
-                  );
-                }
-
-                return _canLoadNextPage = _.isNextPageAvailable;
-              },
-              failure: (_) => _canLoadNextPage = false,
-            );
-          },
-        );
-
-        return NotificationListener<ScrollNotification>(
-          onNotification: (notification) {
-            final metrics = notification.metrics;
-            final limit =
-                metrics.maxScrollExtent - metrics.viewportDimension / 3;
-
-            if (_canLoadNextPage && metrics.pixels >= limit) {
-              _canLoadNextPage = false;
-              widget.getNextPage(ref);
+              showNoConnectionToast(
+                context,
+                message: "You're not online. Some information may be outdated!",
+              );
             }
 
-            return false;
+            return _canLoadNextPage = _.isNextPageAvailable;
           },
-          child: state.maybeWhen(
-            orElse: () => false,
-            data: (repos, _) => repos.entity.isEmpty,
-          )
-              ? NoResultPage(message: widget.noResultMessage)
-              : _PaginatedListView(state: state),
+          failure: (_) => _canLoadNextPage = false,
         );
       },
+    );
+
+    return NotificationListener<ScrollNotification>(
+      onNotification: (notification) {
+        final metrics = notification.metrics;
+        final limit = metrics.maxScrollExtent - metrics.viewportDimension / 3;
+
+        if (_canLoadNextPage && metrics.pixels >= limit) {
+          _canLoadNextPage = false;
+          widget.getNextPage(ref);
+        }
+
+        return false;
+      },
+      child: state.maybeWhen(
+        orElse: () => false,
+        data: (repos, _) => repos.entity.isEmpty,
+      )
+          ? NoResultPage(message: widget.noResultMessage)
+          : _PaginatedListView(state: state),
     );
   }
 }

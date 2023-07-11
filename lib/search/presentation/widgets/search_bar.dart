@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:material_floating_search_bar_2/material_floating_search_bar_2.dart';
@@ -75,7 +76,7 @@ class _SearchBarState extends ConsumerState<AppSearchBar> {
             style: Theme.of(context).textTheme.titleLarge,
           ),
           Text(
-            'Tap to search ☝️',
+            AppLocalizations.of(context)!.tapToSearch,
             style: Theme.of(context).textTheme.bodySmall,
           ),
         ],

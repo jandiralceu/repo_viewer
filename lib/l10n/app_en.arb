@@ -2,5 +2,13 @@
   "tapToSearch": "Tap to search ☝️",
   "@tapToSearch": {
     "description": "Subtitle on search bar"
+  },
+  "starredRepositories": "Starred repositories",
+  "@starredRepositories": {
+    "description": "Title for search bar on starred repositories page"
+  },
+  "searchAllRepositories": "Search all repositories",
+  "@searchAllRepositories": {
+    "description": "Placeholder for the search bar when active"
   }
 }

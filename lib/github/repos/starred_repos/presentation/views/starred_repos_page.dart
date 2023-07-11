@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../../../auth/auth.dart';
@@ -32,8 +33,8 @@ class _StarredReposPageState extends ConsumerState<StarredReposPage> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: AppSearchBar(
-        title: 'Starred repositories',
-        hint: 'Search all repositories',
+        title: AppLocalizations.of(context)!.starredRepositories,
+        hint: AppLocalizations.of(context)!.searchAllRepositories,
         onSignOut: () => ref.read(authNotifierProvider.notifier).signOut(),
         onShouldNavigateToResultPage: (term) {
           AutoRouter.of(context).push(

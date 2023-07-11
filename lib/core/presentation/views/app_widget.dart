@@ -13,6 +13,7 @@ final initializationProvider = FutureProvider<Unit>((ref) async {
     ..options = BaseOptions(
       headers: {
         'Accept': 'application/vnd.github+json',
+        'X-GitHub-Api-Version': '2022-11-28'
       },
       validateStatus: (status) =>
           status != null && status >= 200 && status < 400,

@@ -1,8 +1,9 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:repo_viewer/core/presentation/presentation.dart';
-import 'package:repo_viewer/github/core/core.dart';
+
+import '../../../../core/core.dart';
+import '../../domain/domain.dart';
 
 class RepoTile extends StatelessWidget {
   final Repository repo;
@@ -35,12 +36,12 @@ class RepoTile extends StatelessWidget {
           const Icon(Icons.star_border),
           Text(
             repo.stars.toString(),
-            style: Theme.of(context).textTheme.bodySmall,
+            style: context.theme.textTheme.bodySmall,
           ),
         ],
       ),
       onTap: () {
-        AutoRouter.of(context).push(RepoDetailsRoute(repo: repo));
+        context.router.push(RepoDetailsRoute(repo: repo));
       },
     );
   }

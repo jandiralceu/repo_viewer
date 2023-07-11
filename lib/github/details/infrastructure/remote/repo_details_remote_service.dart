@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_dynamic_calls
+
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:markdown/markdown.dart' hide Text;

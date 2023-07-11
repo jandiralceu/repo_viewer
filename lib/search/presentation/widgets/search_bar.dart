@@ -2,11 +2,11 @@ import 'dart:io';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:material_floating_search_bar_2/material_floating_search_bar_2.dart';
 
+import '../../../core/core.dart';
 import '../../shared/shared.dart';
 
 typedef NavCallback = void Function(String term);
@@ -56,10 +56,10 @@ class _SearchBarState extends ConsumerState<AppSearchBar> {
   Widget build(BuildContext context) {
     return FloatingSearchBar(
       automaticallyImplyBackButton: false,
-      leadingActions: AutoRouter.of(context).canNavigateBack
+      leadingActions: context.router.canNavigateBack
           ? [
               IconButton(
-                onPressed: () => AutoRouter.of(context).pop(),
+                onPressed: () => context.router.pop(),
                 icon: Icon(
                   Platform.isIOS ? Icons.arrow_back_ios : Icons.arrow_back,
                 ),
@@ -73,11 +73,11 @@ class _SearchBarState extends ConsumerState<AppSearchBar> {
         children: [
           Text(
             widget.title,
-            style: Theme.of(context).textTheme.titleLarge,
+            style: context.theme.textTheme.titleLarge,
           ),
           Text(
-            AppLocalizations.of(context)!.tapToSearch,
-            style: Theme.of(context).textTheme.bodySmall,
+            context.i18n.tapToSearch,
+            style: context.theme.textTheme.bodySmall,
           ),
         ],
       ),
@@ -106,7 +106,7 @@ class _SearchBarState extends ConsumerState<AppSearchBar> {
           elevation: 4,
           borderRadius: BorderRadius.circular(8),
           clipBehavior: Clip.hardEdge,
-          color: Theme.of(context).cardColor,
+          color: context.theme.cardColor,
           child: Consumer(
             builder: (context, ref, child) {
               final searchHistory = ref.watch(searchHistoryNotifierProvider);
@@ -121,7 +121,7 @@ class _SearchBarState extends ConsumerState<AppSearchBar> {
                       alignment: Alignment.center,
                       child: Text(
                         'Start searching...',
-                        style: Theme.of(context).textTheme.bodySmall,
+                        style: context.theme.textTheme.bodySmall,
                       ),
                     );
                   } else if (history.value.isEmpty) {

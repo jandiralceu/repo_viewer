@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../../../../core/core.dart';
 import '../../domain/domain.dart';
 import '../presentation.dart';
 
@@ -15,14 +16,14 @@ class FailureRepoTile extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return ListTileTheme(
-      textColor: Theme.of(context).colorScheme.onError,
-      iconColor: Theme.of(context).colorScheme.onError,
+      textColor: context.theme.colorScheme.onError,
+      iconColor: context.theme.colorScheme.onError,
       child: Card(
         margin: const EdgeInsets.symmetric(
           vertical: 8,
           horizontal: 16,
         ),
-        color: Theme.of(context).colorScheme.error,
+        color: context.theme.colorScheme.error,
         child: ListTile(
           title: const Text('An error ocurred, please, retry.'),
           subtitle: Text(
@@ -42,9 +43,6 @@ class FailureRepoTile extends ConsumerWidget {
               context
                   .findAncestorWidgetOfExactType<PaginatedReposListView>()
                   ?.getNextPage(ref);
-              // ref
-              //     .read(starredReposNotifierProvider.notifier)
-              //     .getNextStarredReposPage();
             },
           ),
         ),

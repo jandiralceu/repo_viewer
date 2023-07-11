@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:material_floating_search_bar_2/material_floating_search_bar_2.dart';
-import 'package:repo_viewer/github/github.dart';
 
 import '../../../../core/core.dart';
+import '../../../repos/core/core.dart';
 import '../../core.dart';
 
 class PaginatedReposListView extends ConsumerStatefulWidget {

@@ -93,7 +93,7 @@ class _RepoDetailsPageState extends ConsumerState<RepoDetailsPage> {
                 child: IconButton(
                   icon: const Icon(Icons.star),
                   onPressed: null,
-                  disabledColor: Theme.of(context).iconTheme.color,
+                  disabledColor: context.theme.iconTheme.color,
                 ),
               ),
               success: (_) {

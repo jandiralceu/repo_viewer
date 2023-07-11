@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
+import '../../../../core/core.dart';
+
 class LoadingRepoTile extends StatelessWidget {
   const LoadingRepoTile({super.key});
 
@@ -37,7 +39,7 @@ class LoadingRepoTile extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Icon(Icons.star_border),
-            Text('', style: Theme.of(context).textTheme.bodySmall),
+            Text('', style: context.theme.textTheme.bodySmall),
           ],
         ),
       ),

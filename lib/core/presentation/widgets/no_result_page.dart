@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../core/core.dart';
+
 class NoResultPage extends StatelessWidget {
   final String message;
 
@@ -17,7 +19,7 @@ class NoResultPage extends StatelessWidget {
           const SizedBox(height: 20),
           Text(
             message,
-            style: Theme.of(context).textTheme.headlineSmall,
+            style: context.theme.textTheme.headlineSmall,
             textAlign: TextAlign.center,
           ),
         ],

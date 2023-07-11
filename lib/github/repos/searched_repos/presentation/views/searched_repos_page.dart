@@ -37,7 +37,7 @@ class _SearchedReposPageState extends ConsumerState<SearchedReposPage> {
         hint: 'Search all repositories',
         onSignOut: () => ref.read(authNotifierProvider.notifier).signOut(),
         onShouldNavigateToResultPage: (term) {
-          AutoRouter.of(context).pushAndPopUntil(
+          context.router.pushAndPopUntil(
             SearchedReposRoute(searchTerm: term),
             predicate: (route) => route.settings.name == StarredReposRoute.name,
           );

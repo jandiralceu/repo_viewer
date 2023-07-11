@@ -29,7 +29,7 @@ class SignInPage extends ConsumerWidget {
                   Text(
                     'Welcome to\nRepo Viewer',
                     textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.headlineMedium,
+                    style: context.theme.textTheme.headlineMedium,
                   ),
                   const SizedBox(height: 32),
                   ElevatedButton(
@@ -39,7 +39,7 @@ class SignInPage extends ConsumerWidget {
                           .signIn((authorizationUrl) {
                         final completer = Completer<Uri>();
 
-                        AutoRouter.of(context).push(
+                        context.router.push(
                           AuthorizationRoute(
                             authorizationUrl: authorizationUrl,
                             onAuthorizationCodeRedirectAttempt:

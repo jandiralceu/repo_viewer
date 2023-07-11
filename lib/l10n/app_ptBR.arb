@@ -1,0 +1,6 @@
+{
+  "tapToSearch": "Toque para pesquisar ☝️",
+  "@tapToSearch": {
+    "description": "Subtitle on search bar"
+  }
+}

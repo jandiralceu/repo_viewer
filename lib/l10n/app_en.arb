@@ -1,0 +1,6 @@
+{
+  "tapToSearch": "Tap to search ☝️",
+  "@tapToSearch": {
+    "description": "Subtitle on search bar"
+  }
+}

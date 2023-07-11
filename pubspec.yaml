@@ -31,6 +31,9 @@ dependencies:
   material_floating_search_bar_2: ^0.5.0
   markdown: ^7.1.0
   url_launcher: ^6.1.12
+  flutter_localizations:
+    sdk: flutter
+  intl: ^0.18.0
 
 dev_dependencies:
   flutter_test:
@@ -45,3 +48,4 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  generate: true
